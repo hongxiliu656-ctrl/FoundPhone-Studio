@@ -1,16 +1,19 @@
 {
   "scriptVersion": 1,
-  "id": "ui-test-phone-v2",
-  "title": "捡手机",
-  "description": "仅用于界面测试，不含剧情",
-  "revision": 2,
+  "id": "found-jungkook-phone",
+  "title": "捡到田柾国的手机",
+  "description": "虚构互动故事。你捡到一部没有及时归还的手机，通过应用、聊天和零散线索逐步拼出昨晚发生的事。人物与消息均为虚构创作，不代表现实中的私人生活。",
+  "revision": 3,
   "phone": {
-    "owner": "机主",
-    "date": "2026-10-25",
+    "owner": "田柾国",
+    "date": "2026-10-27",
     "time": "09:41",
-    "battery": 94,
+    "battery": 37,
     "network": "5G",
-    "wallpaper": "apple-wwdc26"
+    "wallpaper": "apple-wwdc26",
+    "passcode": "0901",
+    "theme": "dark",
+    "notifications": true
   },
   "installedApps": [
     "appstore",
@@ -89,159 +92,167 @@
   ],
   "contacts": [
     {
-      "id": "test-contact",
-      "name": "测试联系人",
-      "phone": "",
-      "bio": "这是一条测试内容。"
+      "id": "jk-manager",
+      "name": "金经理",
+      "phone": "010-5550-0901",
+      "avatar": "",
+      "bio": "工作相关。重要事情请电话联系。"
+    },
+    {
+      "id": "jk-friend",
+      "name": "민수",
+      "phone": "010-5550-0713",
+      "avatar": "",
+      "bio": "认识很多年的朋友。"
+    },
+    {
+      "id": "jk-staff",
+      "name": "이 매니저",
+      "phone": "010-5550-0822",
+      "avatar": "",
+      "bio": "行程协调。"
     }
   ],
   "chats": [
     {
-      "id": "test-chat-messages",
-      "app": "messages",
-      "title": "测试会话",
-      "participants": [
-        "owner",
-        "test-contact"
-      ],
-      "messages": [
-        {
-          "id": "test-message-messages",
-          "body": "这是一条测试消息。",
-          "senderId": "test-contact"
-        }
-      ]
-    },
-    {
-      "id": "test-chat-wechat",
-      "app": "wechat",
-      "title": "测试会话",
-      "participants": [
-        "owner",
-        "test-contact"
-      ],
-      "messages": [
-        {
-          "id": "test-message-wechat",
-          "body": "这是一条测试消息。",
-          "senderId": "test-contact"
-        }
-      ]
-    },
-    {
-      "id": "test-chat-qq",
-      "app": "qq",
-      "title": "测试会话",
-      "participants": [
-        "owner",
-        "test-contact"
-      ],
-      "messages": [
-        {
-          "id": "test-message-qq",
-          "body": "这是一条测试消息。",
-          "senderId": "test-contact"
-        }
-      ]
-    },
-    {
-      "id": "test-chat-whatsapp",
-      "app": "whatsapp",
-      "title": "测试会话",
-      "participants": [
-        "owner",
-        "test-contact"
-      ],
-      "messages": [
-        {
-          "id": "test-message-whatsapp",
-          "body": "这是一条测试消息。",
-          "senderId": "test-contact"
-        }
-      ]
-    },
-    {
-      "id": "test-chat-telegram",
-      "app": "telegram",
-      "title": "测试会话",
-      "participants": [
-        "owner",
-        "test-contact"
-      ],
-      "messages": [
-        {
-          "id": "test-message-telegram",
-          "body": "这是一条测试消息。",
-          "senderId": "test-contact"
-        }
-      ]
-    },
-    {
-      "id": "test-chat-discord",
-      "app": "discord",
-      "title": "测试会话",
-      "participants": [
-        "owner",
-        "test-contact"
-      ],
-      "messages": [
-        {
-          "id": "test-message-discord",
-          "body": "这是一条测试消息。",
-          "senderId": "test-contact"
-        }
-      ]
-    },
-    {
-      "id": "test-chat-line",
-      "app": "line",
-      "title": "测试会话",
-      "participants": [
-        "owner",
-        "test-contact"
-      ],
-      "messages": [
-        {
-          "id": "test-message-line",
-          "body": "这是一条测试消息。",
-          "senderId": "test-contact"
-        }
-      ]
-    },
-    {
-      "id": "test-chat-messenger",
-      "app": "messenger",
-      "title": "测试会话",
-      "participants": [
-        "owner",
-        "test-contact"
-      ],
-      "messages": [
-        {
-          "id": "test-message-messenger",
-          "body": "这是一条测试消息。",
-          "senderId": "test-contact"
-        }
-      ]
-    },
-    {
-      "id": "test-chat-kakao",
+      "id": "kakao-manager",
       "app": "kakao",
-      "title": "测试会话",
+      "title": "金经理",
       "participants": [
         "owner",
-        "test-contact"
+        "jk-manager"
       ],
       "messages": [
         {
-          "id": "test-message-kakao",
-          "body": "这是一条测试消息。",
-          "senderId": "test-contact"
+          "id": "kakao-mgr-01",
+          "body": "车已经到楼下了。你看到消息回我一下。",
+          "senderId": "jk-manager",
+          "time": "昨天 22:18",
+          "title": "金经理"
         },
         {
-          "id": "test-reply-kakao",
-          "body": "这是一条测试回复。",
-          "senderId": "owner"
+          "id": "kakao-mgr-02",
+          "body": "我说过了，今天晚上不要自己一个人走。",
+          "senderId": "jk-manager",
+          "time": "昨天 22:21",
+          "title": "金经理"
+        },
+        {
+          "id": "kakao-mgr-03",
+          "body": "我知道。刚刚有点事，手机没看。",
+          "senderId": "owner",
+          "time": "昨天 22:24",
+          "title": "金经理"
+        },
+        {
+          "id": "kakao-mgr-04",
+          "body": "你现在在哪？电话为什么不接？",
+          "senderId": "jk-manager",
+          "time": "昨天 23:07",
+          "title": "金经理"
+        },
+        {
+          "id": "kakao-mgr-05",
+          "body": "……我马上回去。别告诉其他人。",
+          "senderId": "owner",
+          "time": "昨天 23:09",
+          "title": "金经理"
+        }
+      ]
+    },
+    {
+      "id": "kakao-friend",
+      "app": "kakao",
+      "title": "민수",
+      "participants": [
+        "owner",
+        "jk-friend"
+      ],
+      "messages": [
+        {
+          "id": "kakao-friend-01",
+          "body": "你把东西落在便利店了？",
+          "senderId": "jk-friend",
+          "time": "昨天 21:56",
+          "title": "민수"
+        },
+        {
+          "id": "kakao-friend-02",
+          "body": "不是我的。先放你那，明天我去拿。",
+          "senderId": "owner",
+          "time": "昨天 21:58",
+          "title": "민수"
+        },
+        {
+          "id": "kakao-friend-03",
+          "body": "你最近真的很奇怪。要不要聊聊？",
+          "senderId": "jk-friend",
+          "time": "昨天 22:02",
+          "title": "민수"
+        },
+        {
+          "id": "kakao-friend-04",
+          "body": "明天吧。今天不想说话。",
+          "senderId": "owner",
+          "time": "昨天 22:03",
+          "title": "민수"
+        }
+      ]
+    },
+    {
+      "id": "messages-unknown",
+      "app": "messages",
+      "title": "未知号码",
+      "participants": [
+        "owner",
+        "jk-staff"
+      ],
+      "messages": [
+        {
+          "id": "sms-unknown-01",
+          "body": "你拿错了。那不是你应该带走的东西。",
+          "senderId": "jk-staff",
+          "time": "昨天 23:31",
+          "title": "未知号码"
+        },
+        {
+          "id": "sms-unknown-02",
+          "body": "你是谁？",
+          "senderId": "owner",
+          "time": "昨天 23:32",
+          "title": "未知号码"
+        },
+        {
+          "id": "sms-unknown-03",
+          "body": "明天早上九点前，把它放回原处。不要开相册。",
+          "senderId": "jk-staff",
+          "time": "昨天 23:33",
+          "title": "未知号码"
+        }
+      ]
+    },
+    {
+      "id": "wechat-old",
+      "app": "wechat",
+      "title": "老朋友",
+      "participants": [
+        "owner",
+        "jk-friend"
+      ],
+      "messages": [
+        {
+          "id": "wechat-old-01",
+          "body": "你上次说的那件事，想清楚了吗？",
+          "senderId": "jk-friend",
+          "time": "周一 18:42",
+          "title": "老朋友"
+        },
+        {
+          "id": "wechat-old-02",
+          "body": "还没有。可能我一直都没想清楚。",
+          "senderId": "owner",
+          "time": "周一 18:45",
+          "title": "老朋友"
         }
       ]
     }
@@ -249,451 +260,182 @@
   "content": {
     "phone": [
       {
-        "id": "test-item-phone",
-        "title": "测试内容",
-        "body": "这是一条测试内容。",
-        "sender": "测试用户",
-        "kind": "text",
-        "meta": {}
-      }
-    ],
-    "contacts": [
-      {
-        "id": "test-item-contacts",
-        "title": "测试内容",
-        "body": "这是一条测试内容。",
-        "sender": "测试用户",
-        "kind": "text",
-        "meta": {}
+        "id": "call-missed-manager",
+        "title": "未接来电 · 金经理",
+        "body": "昨天 23:07 · 来电未接。之后还有两次来自同一号码的来电。",
+        "kind": "call",
+        "time": "昨天 23:07",
+        "meta": {
+          "status": "missed",
+          "duration": ""
+        }
       }
     ],
     "photos": [
       {
-        "id": "test-item-photos",
-        "title": "测试内容",
-        "body": "这是一条测试内容。",
-        "sender": "测试用户",
-        "kind": "text",
-        "meta": {}
-      }
-    ],
-    "camera": [
+        "id": "photo-receipt",
+        "title": "IMG_1027 · 便利店小票",
+        "body": "拍摄时间 21:47。小票背面写着：‘别去后门。’照片边缘有一截被裁掉的车牌。",
+        "kind": "image",
+        "time": "昨天 21:47",
+        "folder": "最近项目"
+      },
       {
-        "id": "test-item-camera",
-        "title": "测试内容",
-        "body": "这是一条测试内容。",
-        "sender": "测试用户",
-        "kind": "text",
-        "meta": {}
-      }
-    ],
-    "safari": [
+        "id": "photo-blurry-door",
+        "title": "IMG_1028 · 模糊的门",
+        "body": "拍摄时间 22:52。画面里是楼梯间的防火门，门旁贴着一张被撕掉一半的通知。",
+        "kind": "image",
+        "time": "昨天 22:52",
+        "folder": "最近项目"
+      },
       {
-        "id": "test-item-safari",
-        "title": "测试内容",
-        "body": "这是一条测试内容。",
-        "sender": "测试用户",
-        "kind": "text",
-        "meta": {}
+        "id": "photo-hidden",
+        "title": "隐藏项目 · 不能打开的照片",
+        "body": "文件损坏？缩略图几乎全黑。文件备注：‘如果你看到这张，说明我还是没删掉。’",
+        "kind": "image",
+        "time": "昨天 23:01",
+        "hidden": true,
+        "password": "0901",
+        "folder": "隐藏项目"
       }
     ],
     "notes": [
       {
-        "id": "test-item-notes",
-        "title": "测试内容",
-        "body": "这是一条测试内容。",
-        "sender": "测试用户",
-        "kind": "text",
-        "meta": {}
+        "id": "note-todo",
+        "title": "明天要做的事",
+        "body": "1. 取回耳机\n2. 回金经理电话\n3. 把那张照片删掉\n4. 不要再去那家便利店",
+        "kind": "note",
+        "time": "昨天 20:16"
+      },
+      {
+        "id": "note-unsent",
+        "title": "未发送",
+        "body": "我不是不想解释，只是不知道从哪里开始。每次想说的时候，事情就已经变得更糟了。",
+        "kind": "note",
+        "time": "昨天 23:12"
+      },
+      {
+        "id": "note-codehint",
+        "title": "备忘 · 0901",
+        "body": "不是生日。是我第一次决定不再逃避的那一天。",
+        "kind": "note",
+        "time": "周日 00:04"
       }
     ],
     "calendar": [
       {
-        "id": "test-item-calendar",
-        "title": "测试内容",
-        "body": "这是一条测试内容。",
-        "sender": "测试用户",
-        "kind": "text",
-        "meta": {}
+        "id": "calendar-appointment",
+        "title": "取回遗失物",
+        "body": "09:00 · 便利店附近\n备注：一个人去，不要让工作人员知道。",
+        "kind": "event",
+        "time": "今天 09:00"
       }
     ],
     "mail": [
       {
-        "id": "test-item-mail",
-        "title": "测试内容",
-        "body": "这是一条测试内容。",
-        "sender": "测试用户",
+        "id": "mail-itinerary",
+        "title": "明日行程确认",
+        "body": "请确认上午行程。若有临时变更，请直接联系负责人，不要在群聊中讨论。",
+        "sender": "行程组",
         "kind": "text",
-        "meta": {}
-      }
-    ],
-    "clock": [
-      {
-        "id": "test-item-clock",
-        "title": "测试内容",
-        "body": "这是一条测试内容。",
-        "sender": "测试用户",
-        "kind": "text",
-        "meta": {}
+        "time": "昨天 18:20"
       }
     ],
     "reminders": [
       {
-        "id": "test-item-reminders",
-        "title": "测试内容",
-        "body": "这是一条测试内容。",
-        "sender": "测试用户",
+        "id": "reminder-phone",
+        "title": "给手机充电",
+        "body": "电量低于 40% 时提醒。",
         "kind": "text",
-        "meta": {}
+        "time": "今天 08:30"
+      },
+      {
+        "id": "reminder-delete",
+        "title": "删掉那张照片",
+        "body": "已提醒 3 次 · 尚未完成。",
+        "kind": "text",
+        "time": "昨天 23:15"
+      }
+    ],
+    "safari": [
+      {
+        "id": "safari-search",
+        "title": "最近搜索",
+        "body": "“便利店监控保存多久”\n“iPhone 删除照片后还能恢复吗”\n“如何查找被隐藏的相册”",
+        "kind": "text",
+        "time": "昨天 23:18"
       }
     ],
     "files": [
       {
-        "id": "test-item-files",
-        "title": "测试内容",
-        "body": "这是一条测试内容。",
-        "sender": "测试用户",
-        "kind": "text",
-        "meta": {}
-      }
-    ],
-    "music": [
-      {
-        "id": "test-item-music",
-        "title": "测试内容",
-        "body": "这是一条测试内容。",
-        "sender": "测试用户",
-        "kind": "text",
-        "meta": {}
-      }
-    ],
-    "maps": [
-      {
-        "id": "test-item-maps",
-        "title": "测试内容",
-        "body": "这是一条测试内容。",
-        "sender": "测试用户",
-        "kind": "text",
-        "meta": {}
-      }
-    ],
-    "weather": [
-      {
-        "id": "test-item-weather",
-        "title": "测试内容",
-        "body": "这是一条测试内容。",
-        "sender": "测试用户",
-        "kind": "text",
-        "meta": {}
-      }
-    ],
-    "wallet": [
-      {
-        "id": "test-item-wallet",
-        "title": "测试内容",
-        "body": "这是一条测试内容。",
-        "sender": "测试用户",
-        "kind": "text",
-        "meta": {}
-      }
-    ],
-    "health": [
-      {
-        "id": "test-item-health",
-        "title": "测试内容",
-        "body": "这是一条测试内容。",
-        "sender": "测试用户",
-        "kind": "text",
-        "meta": {}
-      }
-    ],
-    "find": [
-      {
-        "id": "test-item-find",
-        "title": "测试内容",
-        "body": "这是一条测试内容。",
-        "sender": "测试用户",
-        "kind": "text",
-        "meta": {}
-      }
-    ],
-    "calculator": [
-      {
-        "id": "test-item-calculator",
-        "title": "测试内容",
-        "body": "这是一条测试内容。",
-        "sender": "测试用户",
-        "kind": "text",
-        "meta": {}
-      }
-    ],
-    "settings": [
-      {
-        "id": "test-item-settings",
-        "title": "测试内容",
-        "body": "这是一条测试内容。",
-        "sender": "测试用户",
-        "kind": "text",
-        "meta": {}
-      }
-    ],
-    "weibo": [
-      {
-        "id": "test-item-weibo",
-        "title": "测试内容",
-        "body": "这是一条测试内容。",
-        "sender": "测试用户",
-        "kind": "text",
-        "meta": {}
-      }
-    ],
-    "redbook": [
-      {
-        "id": "test-item-redbook",
-        "title": "测试内容",
-        "body": "这是一条测试内容。",
-        "sender": "测试用户",
-        "kind": "text",
-        "meta": {}
-      }
-    ],
-    "douyin": [
-      {
-        "id": "test-item-douyin",
-        "title": "测试内容",
-        "body": "这是一条测试内容。",
-        "sender": "测试用户",
-        "kind": "text",
-        "meta": {}
-      }
-    ],
-    "bilibili": [
-      {
-        "id": "test-item-bilibili",
-        "title": "测试内容",
-        "body": "这是一条测试内容。",
-        "sender": "测试用户",
-        "kind": "text",
-        "meta": {}
-      }
-    ],
-    "alipay": [
-      {
-        "id": "test-item-alipay",
-        "title": "测试内容",
-        "body": "这是一条测试内容。",
-        "sender": "测试用户",
-        "kind": "text",
-        "meta": {}
-      }
-    ],
-    "taobao": [
-      {
-        "id": "test-item-taobao",
-        "title": "测试内容",
-        "body": "这是一条测试内容。",
-        "sender": "测试用户",
-        "kind": "text",
-        "meta": {}
-      }
-    ],
-    "netease": [
-      {
-        "id": "test-item-netease",
-        "title": "测试内容",
-        "body": "这是一条测试内容。",
-        "sender": "测试用户",
-        "kind": "text",
-        "meta": {}
-      }
-    ],
-    "delivery": [
-      {
-        "id": "test-item-delivery",
-        "title": "测试内容",
-        "body": "这是一条测试内容。",
-        "sender": "测试用户",
-        "kind": "text",
-        "meta": {}
-      }
-    ],
-    "forum": [
-      {
-        "id": "test-item-forum",
-        "title": "测试内容",
-        "body": "这是一条测试内容。",
-        "sender": "测试用户",
-        "kind": "text",
-        "meta": {}
+        "id": "file-audio",
+        "title": "voice_memo_1027.m4a",
+        "body": "时长 00:17 · 录音备注：‘先听完再决定要不要回去。’",
+        "kind": "audio",
+        "time": "昨天 22:58"
       }
     ],
     "instagram": [
       {
-        "id": "test-item-instagram",
-        "title": "测试内容",
-        "body": "这是一条测试内容。",
-        "sender": "测试用户",
-        "kind": "text",
-        "meta": {}
+        "id": "ig-draft",
+        "title": "未发布的草稿",
+        "body": "没有配文。照片已被移除，草稿仍然保留。",
+        "kind": "post",
+        "time": "昨天 23:20"
       }
     ],
-    "tiktok": [
+    "kakao": [
       {
-        "id": "test-item-tiktok",
-        "title": "测试内容",
-        "body": "这是一条测试内容。",
-        "sender": "测试用户",
+        "id": "kakao-pinned-clue",
+        "title": "置顶消息",
+        "body": "“别去后门。”——来自 민수，昨天 21:56。",
         "kind": "text",
-        "meta": {}
+        "time": "昨天 21:56"
       }
     ],
-    "twitter": [
+    "settings": [
       {
-        "id": "test-item-twitter",
-        "title": "测试内容",
-        "body": "这是一条测试内容。",
-        "sender": "测试用户",
+        "id": "settings-device",
+        "title": "设备信息",
+        "body": "iPhone · 深色模式已开启。锁屏密码为 4 位数字。",
         "kind": "text",
-        "meta": {}
+        "time": ""
       }
     ],
-    "youtube": [
+    "camera": [
       {
-        "id": "test-item-youtube",
-        "title": "测试内容",
-        "body": "这是一条测试内容。",
-        "sender": "测试用户",
+        "id": "camera-recent",
+        "title": "最近拍摄",
+        "body": "最近一次拍摄：昨天 23:01。相机打开后没有新的照片。",
         "kind": "text",
-        "meta": {}
-      }
-    ],
-    "snapchat": [
-      {
-        "id": "test-item-snapchat",
-        "title": "测试内容",
-        "body": "这是一条测试内容。",
-        "sender": "测试用户",
-        "kind": "text",
-        "meta": {}
-      }
-    ],
-    "facebook": [
-      {
-        "id": "test-item-facebook",
-        "title": "测试内容",
-        "body": "这是一条测试内容。",
-        "sender": "测试用户",
-        "kind": "text",
-        "meta": {}
-      }
-    ],
-    "reddit": [
-      {
-        "id": "test-item-reddit",
-        "title": "测试内容",
-        "body": "这是一条测试内容。",
-        "sender": "测试用户",
-        "kind": "text",
-        "meta": {}
-      }
-    ],
-    "spotify": [
-      {
-        "id": "test-item-spotify",
-        "title": "测试内容",
-        "body": "这是一条测试内容。",
-        "sender": "测试用户",
-        "kind": "text",
-        "meta": {}
-      }
-    ],
-    "netflix": [
-      {
-        "id": "test-item-netflix",
-        "title": "测试内容",
-        "body": "这是一条测试内容。",
-        "sender": "测试用户",
-        "kind": "text",
-        "meta": {}
-      }
-    ],
-    "pinterest": [
-      {
-        "id": "test-item-pinterest",
-        "title": "测试内容",
-        "body": "这是一条测试内容。",
-        "sender": "测试用户",
-        "kind": "text",
-        "meta": {}
+        "time": "昨天 23:01"
       }
     ],
     "threads": [
       {
-        "id": "test-item-threads",
-        "title": "测试内容",
-        "body": "这是一条测试内容。",
-        "sender": "测试用户",
-        "kind": "text",
-        "meta": {}
-      },
-      {
-        "id": "test-threads-message-1",
-        "title": "测试会话1",
-        "body": "这是一条测试消息。",
-        "sender": "测试联系人1",
-        "folder": "私信"
-      },
-      {
-        "id": "test-threads-activity-1",
-        "title": "测试动态1",
-        "body": "这是一条测试回复动态。",
-        "sender": "测试用户1",
-        "meta": {
-          "activityType": "reply"
-        }
-      },
-      {
-        "id": "test-threads-message-2",
-        "title": "测试会话2",
-        "body": "这是一条测试消息。",
-        "sender": "测试联系人2",
-        "folder": "私信"
-      },
-      {
-        "id": "test-threads-activity-2",
-        "title": "测试动态2",
-        "body": "这是一条测试回复动态。",
-        "sender": "测试用户2",
-        "meta": {
-          "activityType": "reply"
-        }
-      },
-      {
-        "id": "test-threads-message-3",
-        "title": "测试会话3",
-        "body": "这是一条测试消息。",
-        "sender": "测试联系人3",
-        "folder": "私信"
-      },
-      {
-        "id": "test-threads-activity-3",
-        "title": "测试动态3",
-        "body": "这是一条测试回复动态。",
-        "sender": "测试用户3",
-        "meta": {
-          "activityType": "reply"
-        }
+        "id": "threads-draft",
+        "title": "草稿",
+        "body": "有些事不是不想说，只是说出来之后，就再也不能假装没发生过。",
+        "kind": "post",
+        "time": "昨天 23:26"
       }
     ],
     "appstore": [
       {
-        "id": "test-appstore",
-        "title": "测试内容",
-        "body": "这是一条测试内容。"
+        "id": "appstore-recent",
+        "title": "最近更新",
+        "body": "应用已是最新版本。",
+        "kind": "text",
+        "time": "今天 08:00"
       }
     ]
   },
-  "variables": {},
+  "variables": {
+    "foundPhone": true,
+    "checkedPhotos": false,
+    "heardRecording": false,
+    "returnedPhone": false
+  },
   "events": [],
   "tests": []
 }
