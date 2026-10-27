@@ -1,14 +1,14 @@
 {
   "scriptVersion": 1,
-  "id": "found-jungkook-phone",
-  "title": "捡到田柾国的手机",
-  "description": "虚构互动故事。你捡到一部没有及时归还的手机，通过应用、聊天和零散线索逐步拼出昨晚发生的事。人物与消息均为虚构创作，不代表现实中的私人生活。",
-  "revision": 3,
+  "id": "underground-jungkook-romance",
+  "title": "未公开关系",
+  "description": "虚构互动故事：你和 BTS 成员田柾国秘密交往，恋情意外曝光后，网络暴力、骚扰电话与现实压力把你们推到分手边缘。通过 KakaoTalk、社交平台和手机里的细节，决定这段关系的去向。人物对话与事件均为虚构，不代表现实人物真实私生活。",
+  "revision": 4,
   "phone": {
-    "owner": "田柾国",
-    "date": "2026-10-27",
-    "time": "09:41",
-    "battery": 37,
+    "owner": "你",
+    "date": "2026-10-28",
+    "time": "02:13",
+    "battery": 28,
     "network": "5G",
     "wallpaper": "apple-wwdc26",
     "passcode": "0901",
@@ -16,243 +16,346 @@
     "notifications": true
   },
   "installedApps": [
-    "appstore",
     {
-      "id": "wechat",
-      "name": "微信",
-      "installed": true,
-      "visible": true,
-      "dock": false,
-      "folder": "",
-      "icon": ""
-    },
-    {
-      "id": "douyin",
-      "name": "抖音",
-      "installed": true,
-      "visible": true,
-      "dock": false,
-      "folder": "",
-      "icon": ""
-    },
-    "phone",
-    "messages",
-    "contacts",
-    "photos",
-    {
-      "id": "camera",
-      "name": "相机",
+      "id": "kakao",
+      "name": "KakaoTalk",
       "installed": true,
       "visible": true,
       "dock": true,
       "folder": "",
       "icon": ""
     },
-    "safari",
-    "notes",
-    "calendar",
-    "mail",
-    "clock",
-    "reminders",
-    "files",
-    "music",
-    "maps",
-    "weather",
-    "wallet",
-    "health",
-    "find",
-    "calculator",
-    "settings",
-    "qq",
-    "weibo",
-    "redbook",
-    "bilibili",
-    "alipay",
-    "taobao",
-    "netease",
-    "delivery",
-    "forum",
-    "whatsapp",
-    "instagram",
-    "tiktok",
-    "twitter",
-    "telegram",
-    "discord",
-    "youtube",
-    "line",
-    "snapchat",
-    "facebook",
-    "messenger",
-    "reddit",
-    "spotify",
-    "netflix",
-    "pinterest",
-    "threads",
-    "kakao"
+    {
+      "id": "phone",
+      "name": "电话",
+      "installed": true,
+      "visible": true,
+      "dock": true,
+      "folder": "",
+      "icon": ""
+    },
+    {
+      "id": "photos",
+      "name": "相册",
+      "installed": true,
+      "visible": true,
+      "dock": false,
+      "folder": "",
+      "icon": ""
+    },
+    {
+      "id": "settings",
+      "name": "设置",
+      "installed": true,
+      "visible": true,
+      "dock": false,
+      "folder": "",
+      "icon": ""
+    },
+    {
+      "id": "music",
+      "name": "音乐",
+      "installed": true,
+      "visible": true,
+      "dock": true,
+      "folder": "",
+      "icon": ""
+    },
+    {
+      "id": "weather",
+      "name": "天气",
+      "installed": true,
+      "visible": true,
+      "dock": false,
+      "folder": "",
+      "icon": ""
+    },
+    {
+      "id": "instagram",
+      "name": "Instagram",
+      "installed": true,
+      "visible": true,
+      "dock": false,
+      "folder": "",
+      "icon": ""
+    },
+    {
+      "id": "twitter",
+      "name": "X",
+      "installed": true,
+      "visible": true,
+      "dock": false,
+      "folder": "",
+      "icon": ""
+    },
+    {
+      "id": "threads",
+      "name": "Threads",
+      "installed": true,
+      "visible": true,
+      "dock": false,
+      "folder": "",
+      "icon": ""
+    },
+    {
+      "id": "notes",
+      "name": "备忘录",
+      "installed": true,
+      "visible": true,
+      "dock": false,
+      "folder": "",
+      "icon": ""
+    },
+    {
+      "id": "safari",
+      "name": "Safari",
+      "installed": true,
+      "visible": true,
+      "dock": false,
+      "folder": "",
+      "icon": ""
+    }
   ],
   "contacts": [
     {
-      "id": "jk-manager",
-      "name": "金经理",
-      "phone": "010-5550-0901",
+      "id": "jungkook",
+      "name": "정국",
+      "phone": "010-****-0901",
       "avatar": "",
-      "bio": "工作相关。重要事情请电话联系。"
+      "bio": "置顶聊天。不要在不安全的地方打电话。"
     },
     {
-      "id": "jk-friend",
-      "name": "민수",
-      "phone": "010-5550-0713",
+      "id": "taehyung",
+      "name": "태형",
+      "phone": "010-****-1230",
       "avatar": "",
-      "bio": "认识很多年的朋友。"
+      "bio": "柾国的朋友。知道你们的事。"
     },
     {
-      "id": "jk-staff",
-      "name": "이 매니저",
-      "phone": "010-5550-0822",
+      "id": "mom",
+      "name": "妈妈",
+      "phone": "",
       "avatar": "",
-      "bio": "行程协调。"
+      "bio": "看到网上的东西了，先接电话。"
+    },
+    {
+      "id": "bestfriend",
+      "name": "朋友",
+      "phone": "",
+      "avatar": "",
+      "bio": "别一个人扛着，我在。"
     }
   ],
   "chats": [
     {
-      "id": "kakao-manager",
+      "id": "chat-jk",
       "app": "kakao",
-      "title": "金经理",
+      "title": "정국 🐰",
       "participants": [
         "owner",
-        "jk-manager"
+        "jungkook"
       ],
       "messages": [
         {
-          "id": "kakao-mgr-01",
-          "body": "车已经到楼下了。你看到消息回我一下。",
-          "senderId": "jk-manager",
-          "time": "昨天 22:18",
-          "title": "金经理"
+          "id": "jk-01",
+          "title": "정국 🐰",
+          "body": "醒了吗？",
+          "senderId": "jungkook",
+          "time": "昨天 23:48"
         },
         {
-          "id": "kakao-mgr-02",
-          "body": "我说过了，今天晚上不要自己一个人走。",
-          "senderId": "jk-manager",
-          "time": "昨天 22:21",
-          "title": "金经理"
+          "id": "jk-02",
+          "title": "정국 🐰",
+          "body": "我刚结束练习。今天可能不能过去找你。",
+          "senderId": "jungkook",
+          "time": "昨天 23:49"
         },
         {
-          "id": "kakao-mgr-03",
-          "body": "我知道。刚刚有点事，手机没看。",
+          "id": "jk-03",
+          "title": "정국 🐰",
+          "body": "没关系，你先休息。",
           "senderId": "owner",
-          "time": "昨天 22:24",
-          "title": "金经理"
+          "time": "昨天 23:51"
         },
         {
-          "id": "kakao-mgr-04",
-          "body": "你现在在哪？电话为什么不接？",
-          "senderId": "jk-manager",
-          "time": "昨天 23:07",
-          "title": "金经理"
+          "id": "jk-04",
+          "title": "정국 🐰",
+          "body": "你每次说没关系的时候，我都知道你在难过。",
+          "senderId": "jungkook",
+          "time": "昨天 23:52"
         },
         {
-          "id": "kakao-mgr-05",
-          "body": "……我马上回去。别告诉其他人。",
+          "id": "jk-05",
+          "title": "정국 🐰",
+          "body": "有人拍到我们了。照片已经传开。",
+          "senderId": "jungkook",
+          "time": "今天 00:16"
+        },
+        {
+          "id": "jk-06",
+          "title": "정국 🐰",
+          "body": "公司在处理。你先别看评论，也别出门。",
+          "senderId": "jungkook",
+          "time": "今天 00:18"
+        },
+        {
+          "id": "jk-07",
+          "title": "정국 🐰",
+          "body": "你说得倒轻松。现在被堵在门口的人不是你。",
           "senderId": "owner",
-          "time": "昨天 23:09",
-          "title": "金经理"
+          "time": "今天 00:24"
+        },
+        {
+          "id": "jk-08",
+          "title": "정국 🐰",
+          "body": "我知道。对不起，我不是想让你一个人承受。",
+          "senderId": "jungkook",
+          "time": "今天 00:26"
+        },
+        {
+          "id": "jk-09",
+          "title": "정국 🐰",
+          "body": "如果我现在公开说清楚，你会不会更危险？",
+          "senderId": "jungkook",
+          "time": "今天 00:31"
+        },
+        {
+          "id": "jk-10",
+          "title": "정국 🐰",
+          "body": "那如果一直不说呢？我是不是永远只能躲在你生活外面？",
+          "senderId": "owner",
+          "time": "今天 00:33"
+        },
+        {
+          "id": "jk-11",
+          "title": "정국 🐰",
+          "body": "我不想分手。可是我也不知道怎么才能不伤害你。",
+          "senderId": "jungkook",
+          "time": "今天 01:47"
+        },
+        {
+          "id": "jk-12",
+          "title": "정국 🐰",
+          "body": "我现在过去。你不用马上原谅我，我们先见一面，好不好？",
+          "senderId": "jungkook",
+          "time": "今天 02:08"
         }
       ]
     },
     {
-      "id": "kakao-friend",
+      "id": "chat-tae",
       "app": "kakao",
-      "title": "민수",
+      "title": "태형",
       "participants": [
         "owner",
-        "jk-friend"
+        "taehyung"
       ],
       "messages": [
         {
-          "id": "kakao-friend-01",
-          "body": "你把东西落在便利店了？",
-          "senderId": "jk-friend",
-          "time": "昨天 21:56",
-          "title": "민수"
+          "id": "tae-01",
+          "title": "태형",
+          "body": "我看到了。你还好吗？",
+          "senderId": "taehyung",
+          "time": "今天 00:42"
         },
         {
-          "id": "kakao-friend-02",
-          "body": "不是我的。先放你那，明天我去拿。",
-          "senderId": "owner",
-          "time": "昨天 21:58",
-          "title": "민수"
+          "id": "tae-02",
+          "title": "태형",
+          "body": "柾国现在状态也很糟，但他一直在问你有没有回消息。",
+          "senderId": "taehyung",
+          "time": "今天 00:43"
         },
         {
-          "id": "kakao-friend-03",
-          "body": "你最近真的很奇怪。要不要聊聊？",
-          "senderId": "jk-friend",
-          "time": "昨天 22:02",
-          "title": "민수"
+          "id": "tae-03",
+          "title": "태형",
+          "body": "我不替他讲话。只是想告诉你，他不是不在乎你。",
+          "senderId": "taehyung",
+          "time": "今天 00:44"
         },
         {
-          "id": "kakao-friend-04",
-          "body": "明天吧。今天不想说话。",
-          "senderId": "owner",
-          "time": "昨天 22:03",
-          "title": "민수"
+          "id": "tae-04",
+          "title": "태형",
+          "body": "你先保护好自己。其他事等天亮再决定。",
+          "senderId": "taehyung",
+          "time": "今天 00:45"
         }
       ]
     },
     {
-      "id": "messages-unknown",
-      "app": "messages",
-      "title": "未知号码",
+      "id": "chat-mom",
+      "app": "kakao",
+      "title": "妈妈",
       "participants": [
         "owner",
-        "jk-staff"
+        "mom"
       ],
       "messages": [
         {
-          "id": "sms-unknown-01",
-          "body": "你拿错了。那不是你应该带走的东西。",
-          "senderId": "jk-staff",
-          "time": "昨天 23:31",
-          "title": "未知号码"
+          "id": "mom-01",
+          "title": "妈妈",
+          "body": "网上那些话我看到了。你别一个人躲着，给妈妈打电话。",
+          "senderId": "mom",
+          "time": "今天 00:51"
         },
         {
-          "id": "sms-unknown-02",
-          "body": "你是谁？",
+          "id": "mom-02",
+          "title": "妈妈",
+          "body": "你喜欢谁是你的事，但如果有人威胁你，一定要告诉我。",
+          "senderId": "mom",
+          "time": "今天 00:52"
+        },
+        {
+          "id": "mom-03",
+          "title": "妈妈",
+          "body": "我不要求你现在解释全部。先确认你安全。",
+          "senderId": "mom",
+          "time": "今天 00:53"
+        },
+        {
+          "id": "mom-04",
+          "title": "妈妈",
+          "body": "我没事，就是有点害怕。等下给你打过去。",
           "senderId": "owner",
-          "time": "昨天 23:32",
-          "title": "未知号码"
-        },
-        {
-          "id": "sms-unknown-03",
-          "body": "明天早上九点前，把它放回原处。不要开相册。",
-          "senderId": "jk-staff",
-          "time": "昨天 23:33",
-          "title": "未知号码"
+          "time": "今天 00:54"
         }
       ]
     },
     {
-      "id": "wechat-old",
-      "app": "wechat",
-      "title": "老朋友",
+      "id": "chat-friend",
+      "app": "kakao",
+      "title": "朋友",
       "participants": [
         "owner",
-        "jk-friend"
+        "bestfriend"
       ],
       "messages": [
         {
-          "id": "wechat-old-01",
-          "body": "你上次说的那件事，想清楚了吗？",
-          "senderId": "jk-friend",
-          "time": "周一 18:42",
-          "title": "老朋友"
+          "id": "friend-01",
+          "title": "朋友",
+          "body": "你 IG 私信是不是关了？我刚看到有人截图发你。",
+          "senderId": "bestfriend",
+          "time": "今天 00:35"
         },
         {
-          "id": "wechat-old-02",
-          "body": "还没有。可能我一直都没想清楚。",
+          "id": "friend-02",
+          "title": "朋友",
+          "body": "别看那些评论了，有人把你以前的照片翻出来骂。",
+          "senderId": "bestfriend",
+          "time": "今天 00:36"
+        },
+        {
+          "id": "friend-03",
+          "title": "朋友",
+          "body": "我可以过去陪你。你不用现在做决定。",
+          "senderId": "bestfriend",
+          "time": "今天 00:37"
+        },
+        {
+          "id": "friend-04",
+          "title": "朋友",
+          "body": "我怕自己拖累他，也怕我就这样失去他。",
           "senderId": "owner",
-          "time": "周一 18:45",
-          "title": "老朋友"
+          "time": "今天 00:38"
         }
       ]
     }
@@ -260,182 +363,369 @@
   "content": {
     "phone": [
       {
-        "id": "call-missed-manager",
-        "title": "未接来电 · 金经理",
-        "body": "昨天 23:07 · 来电未接。之后还有两次来自同一号码的来电。",
+        "id": "call-unknown-1",
+        "title": "未知号码 · 未接来电",
+        "body": "00:19 · 未接。号码未显示。",
         "kind": "call",
-        "time": "昨天 23:07",
+        "time": "今天 00:19",
         "meta": {
           "status": "missed",
-          "duration": ""
+          "number": "未知号码"
+        }
+      },
+      {
+        "id": "call-unknown-2",
+        "title": "未知号码 · 未接来电",
+        "body": "00:22 · 未接。连续来电 4 次。",
+        "kind": "call",
+        "time": "今天 00:22",
+        "meta": {
+          "status": "missed",
+          "number": "未知号码"
+        }
+      },
+      {
+        "id": "call-unknown-3",
+        "title": "未知号码 · 语音留言",
+        "body": "“你配不上他。别再出现了。”留言已保存。",
+        "kind": "audio",
+        "time": "今天 00:29",
+        "meta": {
+          "status": "voicemail"
+        }
+      },
+      {
+        "id": "call-mom",
+        "title": "妈妈 · 已接来电",
+        "body": "00:54 · 通话 03:12。妈妈让你把门锁好，今晚不要独自出门。",
+        "kind": "call",
+        "time": "今天 00:54",
+        "meta": {
+          "status": "answered",
+          "duration": "03:12"
+        }
+      },
+      {
+        "id": "call-jk",
+        "title": "정국 · 未接来电",
+        "body": "01:56 · 未接。随后他发来 KakaoTalk。",
+        "kind": "call",
+        "time": "今天 01:56",
+        "meta": {
+          "status": "missed"
         }
       }
     ],
     "photos": [
       {
-        "id": "photo-receipt",
-        "title": "IMG_1027 · 便利店小票",
-        "body": "拍摄时间 21:47。小票背面写着：‘别去后门。’照片边缘有一截被裁掉的车牌。",
+        "id": "photo-cafe",
+        "title": "IMG_1021 · 那天的咖啡",
+        "body": "你们坐在角落里，桌上只有两杯快要融化的冰美式。照片没有拍到正脸，但他的手腕和戒指清晰可见。",
         "kind": "image",
-        "time": "昨天 21:47",
-        "folder": "最近项目"
+        "time": "三天前 16:28",
+        "folder": "收藏"
       },
       {
-        "id": "photo-blurry-door",
-        "title": "IMG_1028 · 模糊的门",
-        "body": "拍摄时间 22:52。画面里是楼梯间的防火门，门旁贴着一张被撕掉一半的通知。",
+        "id": "photo-sleeve",
+        "title": "IMG_1024 · 袖口",
+        "body": "他睡着时你拍下的照片。画面只有黑色卫衣袖口和交叠的手。你没有发给任何人。",
         "kind": "image",
-        "time": "昨天 22:52",
-        "folder": "最近项目"
+        "time": "两天前 02:17",
+        "folder": "隐藏的回忆"
       },
       {
-        "id": "photo-hidden",
-        "title": "隐藏项目 · 不能打开的照片",
-        "body": "文件损坏？缩略图几乎全黑。文件备注：‘如果你看到这张，说明我还是没删掉。’",
+        "id": "photo-leak",
+        "title": "IMG_1028 · 被拍到的背影",
+        "body": "网络流传的照片截图。画质很差，但你们牵着的手被放大标注。",
         "kind": "image",
-        "time": "昨天 23:01",
-        "hidden": true,
-        "password": "0901",
-        "folder": "隐藏项目"
+        "time": "今天 00:11",
+        "folder": "最近项目"
+      }
+    ],
+    "settings": [
+      {
+        "id": "settings-privacy",
+        "title": "隐私与安全",
+        "body": "锁屏密码：已开启\n通知预览：仅解锁后\n未知来电：静音已关闭\n社交账号：仍有公开信息可能被截图。",
+        "kind": "text",
+        "time": "今天 01:02"
+      }
+    ],
+    "music": [
+      {
+        "id": "music-last",
+        "title": "最近播放",
+        "body": "Still With You · Jung Kook\n播放到 02:06 时暂停。耳机已断开。",
+        "kind": "audio",
+        "time": "今天 02:06",
+        "meta": {
+          "artist": "Jung Kook",
+          "status": "paused"
+        }
+      },
+      {
+        "id": "music-playlist",
+        "title": "未命名歌单",
+        "body": "Still With You\nEuphoria\nBlue Side\n歌单备注：不想说话的时候就听。",
+        "kind": "text",
+        "time": "昨天 23:02"
+      }
+    ],
+    "weather": [
+      {
+        "id": "weather-seoul",
+        "title": "首尔 · 夜间天气",
+        "body": "多云，12°C。凌晨风很大。窗外偶尔有车停下又离开。",
+        "kind": "text",
+        "time": "今天 02:00"
+      }
+    ],
+    "instagram": [
+      {
+        "id": "ig-post-leak",
+        "title": "热门贴文 · @daily_seoul",
+        "body": "“疑似恋情曝光？凌晨被拍到与 BTS 成员田柾国同行。”\n评论：\n“这是真的吗？”\n“请不要把未经证实的猜测当事实。”\n“她到底是谁？”",
+        "kind": "post",
+        "time": "今天 00:11",
+        "likes": 18204,
+        "comments": [
+          "这是真的吗？",
+          "不要把猜测当事实。",
+          "请停止传播私人照片。"
+        ]
+      },
+      {
+        "id": "ig-dm-abuse",
+        "title": "私信 · 未关注的账号",
+        "body": "“离他远一点。”\n“你凭什么和他在一起？”\n“我们知道你常去哪里。”\n最后一条已被平台折叠。建议不要回复，保存证据并拉黑。",
+        "kind": "text",
+        "time": "今天 00:27",
+        "sender": "未关注的账号",
+        "meta": {
+          "type": "dm",
+          "unread": "3"
+        }
+      },
+      {
+        "id": "ig-story-draft",
+        "title": "Story 草稿",
+        "body": "输入框里只有一句话：“我也只是一个普通人。”你没有发布。",
+        "kind": "post",
+        "time": "今天 01:13",
+        "meta": {
+          "type": "draft"
+        }
+      }
+    ],
+    "twitter": [
+      {
+        "id": "x-thread-1",
+        "title": "趋势 · #Jungkook",
+        "body": "“恋情曝光”进入趋势。大量账号转发模糊照片，有人猜测你的身份，也有人提醒大家不要人肉搜索。",
+        "kind": "post",
+        "time": "今天 00:15",
+        "likes": 35000,
+        "comments": [
+          "不要猜测普通人的身份。",
+          "艺人也有私人生活。",
+          "请不要传播地址。"
+        ]
+      },
+      {
+        "id": "x-quote-1",
+        "title": "引用推文",
+        "body": "“如果是真的，我只希望大家别把怒气发泄在另一个人身上。”\n转发数持续上升。",
+        "kind": "post",
+        "time": "今天 00:47",
+        "likes": 9200,
+        "comments": [
+          "同意。",
+          "不要骚扰任何人。"
+        ]
+      },
+      {
+        "id": "x-mention-1",
+        "title": "提及你的账号",
+        "body": "一条陌生账号的贴文附上了你的旧照片，并写道：“找到她了？”\n你已截图保存。不要点击陌生链接。",
+        "kind": "post",
+        "time": "今天 01:05",
+        "meta": {
+          "type": "mention",
+          "flagged": "true"
+        }
+      }
+    ],
+    "threads": [
+      {
+        "id": "threads-1",
+        "title": "热门讨论",
+        "body": "“如果偶像谈恋爱，另一方就必须承担所有后果吗？”\n回复里有人争吵，也有人说恋爱不是罪。",
+        "kind": "post",
+        "time": "今天 00:39",
+        "likes": 12400,
+        "comments": [
+          "不要攻击无关的人。",
+          "公众人物也有私人生活。",
+          "希望别再传播照片。"
+        ]
+      },
+      {
+        "id": "threads-2",
+        "title": "陌生人的回复",
+        "body": "“她毁了他的事业。”\n下一条回复：“他是成年人，感情是双方的选择，不该把责任全推给一个人。”",
+        "kind": "post",
+        "time": "今天 01:16",
+        "comments": [
+          "把责任推给单独一方并不公平。",
+          "请停止人身攻击。"
+        ]
+      },
+      {
+        "id": "threads-draft",
+        "title": "未发布的草稿",
+        "body": "“如果沉默能保护他，那谁来保护我？”\n你写完后没有按下发布。",
+        "kind": "post",
+        "time": "今天 01:41",
+        "meta": {
+          "type": "draft"
+        }
       }
     ],
     "notes": [
       {
-        "id": "note-todo",
-        "title": "明天要做的事",
-        "body": "1. 取回耳机\n2. 回金经理电话\n3. 把那张照片删掉\n4. 不要再去那家便利店",
+        "id": "note-list",
+        "title": "不想忘记的事",
+        "body": "他记得我不吃香菜。\n他会在凌晨练习结束后绕路来见我。\n我们说好暂时不公开，是因为想保护彼此。\n可现在我开始分不清，保密是在保护我们，还是在慢慢把我藏起来。",
         "kind": "note",
-        "time": "昨天 20:16"
+        "time": "上周"
       },
       {
-        "id": "note-unsent",
-        "title": "未发送",
-        "body": "我不是不想解释，只是不知道从哪里开始。每次想说的时候，事情就已经变得更糟了。",
+        "id": "note-draft",
+        "title": "没发出去的话",
+        "body": "我知道你也很难。可我每次听到你说“再等等”，就觉得自己像一段不能被承认的关系。",
         "kind": "note",
-        "time": "昨天 23:12"
+        "time": "今天 01:32"
       },
       {
-        "id": "note-codehint",
-        "title": "备忘 · 0901",
-        "body": "不是生日。是我第一次决定不再逃避的那一天。",
+        "id": "note-last-message",
+        "title": "02:13 · 最后一次编辑",
+        "body": "他刚刚发来消息：‘我不想失去你，但我不能要求你一直等。’\n你盯着屏幕很久，最后只打下一句：‘那我们见面，把话说完。’\n\n天快亮了。你可以选择离开这段关系，也可以选择再给彼此一次机会。没有人能替你决定。",
         "kind": "note",
-        "time": "周日 00:04"
-      }
-    ],
-    "calendar": [
-      {
-        "id": "calendar-appointment",
-        "title": "取回遗失物",
-        "body": "09:00 · 便利店附近\n备注：一个人去，不要让工作人员知道。",
-        "kind": "event",
-        "time": "今天 09:00"
-      }
-    ],
-    "mail": [
-      {
-        "id": "mail-itinerary",
-        "title": "明日行程确认",
-        "body": "请确认上午行程。若有临时变更，请直接联系负责人，不要在群聊中讨论。",
-        "sender": "行程组",
-        "kind": "text",
-        "time": "昨天 18:20"
-      }
-    ],
-    "reminders": [
-      {
-        "id": "reminder-phone",
-        "title": "给手机充电",
-        "body": "电量低于 40% 时提醒。",
-        "kind": "text",
-        "time": "今天 08:30"
-      },
-      {
-        "id": "reminder-delete",
-        "title": "删掉那张照片",
-        "body": "已提醒 3 次 · 尚未完成。",
-        "kind": "text",
-        "time": "昨天 23:15"
+        "time": "今天 02:13"
       }
     ],
     "safari": [
       {
         "id": "safari-search",
         "title": "最近搜索",
-        "body": "“便利店监控保存多久”\n“iPhone 删除照片后还能恢复吗”\n“如何查找被隐藏的相册”",
+        "body": "“如何限制 Instagram 私信”\n“iPhone 静音未知来电”\n“网络骚扰如何保存证据”\n“公众人物恋情曝光后如何保护隐私”",
         "kind": "text",
-        "time": "昨天 23:18"
-      }
-    ],
-    "files": [
+        "time": "今天 01:10"
+      },
       {
-        "id": "file-audio",
-        "title": "voice_memo_1027.m4a",
-        "body": "时长 00:17 · 录音备注：‘先听完再决定要不要回去。’",
-        "kind": "audio",
-        "time": "昨天 22:58"
-      }
-    ],
-    "instagram": [
-      {
-        "id": "ig-draft",
-        "title": "未发布的草稿",
-        "body": "没有配文。照片已被移除，草稿仍然保留。",
-        "kind": "post",
-        "time": "昨天 23:20"
-      }
-    ],
-    "kakao": [
-      {
-        "id": "kakao-pinned-clue",
-        "title": "置顶消息",
-        "body": "“别去后门。”——来自 민수，昨天 21:56。",
+        "id": "safari-history",
+        "title": "浏览记录",
+        "body": "隐私与安全设置指南\n如何举报网络骚扰\n韩国个人信息保护相关说明\n页面均为模拟浏览记录，不连接外部网站。",
         "kind": "text",
-        "time": "昨天 21:56"
-      }
-    ],
-    "settings": [
-      {
-        "id": "settings-device",
-        "title": "设备信息",
-        "body": "iPhone · 深色模式已开启。锁屏密码为 4 位数字。",
-        "kind": "text",
-        "time": ""
-      }
-    ],
-    "camera": [
-      {
-        "id": "camera-recent",
-        "title": "最近拍摄",
-        "body": "最近一次拍摄：昨天 23:01。相机打开后没有新的照片。",
-        "kind": "text",
-        "time": "昨天 23:01"
-      }
-    ],
-    "threads": [
-      {
-        "id": "threads-draft",
-        "title": "草稿",
-        "body": "有些事不是不想说，只是说出来之后，就再也不能假装没发生过。",
-        "kind": "post",
-        "time": "昨天 23:26"
-      }
-    ],
-    "appstore": [
-      {
-        "id": "appstore-recent",
-        "title": "最近更新",
-        "body": "应用已是最新版本。",
-        "kind": "text",
-        "time": "今天 08:00"
+        "time": "今天 01:20"
       }
     ]
   },
   "variables": {
-    "foundPhone": true,
-    "checkedPhotos": false,
-    "heardRecording": false,
-    "returnedPhone": false
+    "leakSeen": false,
+    "choiceMade": false
   },
-  "events": [],
-  "tests": []
+  "events": [
+    {
+      "id": "start-story",
+      "label": "凌晨的手机",
+      "type": "start",
+      "actions": [
+        {
+          "type": "notification",
+          "key": "",
+          "value": "KakaoTalk · 정국：我现在过去。我们见一面，好不好？"
+        }
+      ]
+    },
+    {
+      "id": "read-final-note",
+      "label": "读完最后一条备忘录",
+      "event": "read",
+      "target": "note-last-message",
+      "actions": [
+        {
+          "type": "variable",
+          "key": "choiceMade",
+          "value": false
+        }
+      ],
+      "next": [
+        "decision"
+      ]
+    },
+    {
+      "id": "decision",
+      "label": "你要怎么回答他？",
+      "type": "choice",
+      "next": [
+        "ending-break",
+        "ending-stay"
+      ]
+    },
+    {
+      "id": "ending-break",
+      "label": "选择分手",
+      "type": "ending",
+      "actions": [
+        {
+          "type": "ending",
+          "key": "",
+          "value": "分手：你决定先把自己从这场风暴里带走。你给他发出最后一条消息：“我爱过你，但我不能再这样活下去。”消息显示已送达。窗外天色渐亮，故事没有告诉你们以后会不会重逢。"
+        }
+      ]
+    },
+    {
+      "id": "ending-stay",
+      "label": "选择继续",
+      "type": "ending",
+      "actions": [
+        {
+          "type": "ending",
+          "key": "",
+          "value": "继续：你告诉他，如果还要在一起，就不能再让你独自承担所有代价。他回复：“这一次，我会和你一起面对。”门铃响起。你走向门口，结局停在你握住门把的那一刻。"
+        }
+      ]
+    }
+  ],
+  "tests": [
+    {
+      "name": "选择分手",
+      "steps": [
+        {
+          "event": "read",
+          "target": "note-last-message"
+        },
+        {
+          "choose": "ending-break"
+        }
+      ],
+      "ending": "分手：你决定先把自己从这场风暴里带走。你给他发出最后一条消息：“我爱过你，但我不能再这样活下去。”消息显示已送达。窗外天色渐亮，故事没有告诉你们以后会不会重逢。",
+      "expectUnlocked": []
+    },
+    {
+      "name": "选择继续",
+      "steps": [
+        {
+          "event": "read",
+          "target": "note-last-message"
+        },
+        {
+          "choose": "ending-stay"
+        }
+      ],
+      "ending": "继续：你告诉他，如果还要在一起，就不能再让你独自承担所有代价。他回复：“这一次，我会和你一起面对。”门铃响起。你走向门口，结局停在你握住门把的那一刻。",
+      "expectUnlocked": []
+    }
+  ]
 }
