@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { Item } from "../schema";
 import "./crisis-chat.css";
 
@@ -22,13 +22,15 @@ const sequence = [
 ];
 export function CrisisChat({owner,history,step,onStep}:{owner:string;history:Item[];step:number;onStep?:(n:number)=>void}) {
 
-  const [room,setRoom]=useState("田柾国 🐰");
+  const [room,setRoom]=useState<string | null>(null);
+  const bottom=useRef<HTMLDivElement>(null);
   const [keyboard,setKeyboard]=useState(false);
   const [typed,setTyped]=useState("");
   useEffect(()=>{ if(!current || current.who!=="我")return;setKeyboard(true);setTyped("");let i=0;const timer=setInterval(()=>{i++;setTyped(current.text.slice(0,i));if(i>=current.text.length){clearInterval(timer);setTimeout(()=>{onStep?.(step+1);setKeyboard(false);},650)}},115);return ()=>clearInterval(timer);},[step,room]);
 
   const [sent,setSent]=useState<Record<string,boolean>>({});
   const active = room === "田柾国 🐰";
+  useEffect(()=>{bottom.current?.scrollIntoView({block:"end",behavior:"smooth"});},[room,step,typed,sent]);
   const current = sequence[step];
   const contacts = ["田柾国 🐰","金泰亨","妈妈","朋友"];
   const previous = history.filter(i=>i.title===room && !i.id.startsWith("crisis-")).slice(-18).map(i=>({who:i.sender===owner?"我":room,text:i.body}));
@@ -40,17 +42,18 @@ export function CrisisChat({owner,history,step,onStep}:{owner:string;history:Ite
     setTyped("");
   };
   return <div className="crisis-chat">
-    <div className="crisis-heading"><strong>‹ {room}</strong><small>☰ ⌕</small></div>
-    <div className="crisis-rooms">{contacts.map(c=><button key={c} className={room===c?"selected":""} onClick={()=>{setRoom(c);setKeyboard(false)}}>{c}{c!=="田柾国 🐰"&&step>=4?" ●":""}</button>)}</div>
+    {!room ? <><div className="crisis-heading"><strong>聊天</strong><small>⌕　☰</small></div><div className="crisis-inbox">{contacts.map((name,i)=><button key={name} onClick={()=>setRoom(name)}><span className="crisis-avatar">{["🐰","🐻","👩","💬"][i]}</span><span><strong>{name}</strong><small>{i===0?(sequence[Math.max(0,step-1)]?.text||opening[0].text):step>=4?incoming[name]?.[0]?.text:""}</small></span><span className="crisis-inbox-time">09:41</span></button>)}</div><nav className="crisis-bottom-nav">好友　　聊天　　发现　　更多</nav></> : <><div className="crisis-heading"><button onClick={()=>setRoom(null)} aria-label="返回聊天列表">‹</button><strong>{room}</strong><small>⌕　☰</small></div>
     <div className="crisis-room-title">2026年10月28日 星期三</div>
     <div className="crisis-lines" key={room}>
       {messages.map((m,i)=><div key={i} className={"crisis-bubble "+(m.who==="我"?"mine":"theirs")}><small>{m.who==="我"?owner:m.who}</small><p>{m.text}</p></div>)}
       {!active && step>=4 && sent[room] && <div className="crisis-bubble mine"><small>{owner}</small><p>{room==="妈妈"?"妈，我没事，晚点给你打电话。":room==="朋友"?"谢谢你，我需要的时候会找你。":"谢谢你，我现在还好。"}</p></div>}
+      <div ref={bottom} />
     </div>
     {active && current ? <div className="crisis-compose">
       {current.who==="我" ? <><div className="crisis-input">{typed}<span className="crisis-cursor">│</span></div>{keyboard&&<><div className="crisis-fake-keyboard" aria-label="剧情自动输入键盘">{["Q W E R T Y U I O P","A S D F G H J K L","⇧ Z X C V B N M ⌫","123  🌐  空格  换行"].map(row=><div key={row}>{row.split(" ").filter(Boolean).map(k=><span key={k}>{k}</span>)}</div>)}</div><span className="crisis-send">↑</span></>}</> :
       <button className="crisis-next" onClick={advance}>查看田柾国的新消息</button>}
     </div> : active ? <div className="crisis-compose"><p>你们的聊天暂时停在这里。</p></div> :
     <div className="crisis-compose">{step<4?<span>先查看田柾国的消息</span>:<button onClick={()=>setSent(v=>({...v,[room]:true}))} disabled={!!sent[room]}>{sent[room]?"已回复":"发送预设回复"}</button>}</div>}
+    </>}
   </div>;
 }
