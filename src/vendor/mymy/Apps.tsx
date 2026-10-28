@@ -645,7 +645,7 @@ export function MymyX(p: SkinProps) {
     [likes, setLikes] = useSkinState<string[]>(p, "mymyXLikes", []),
     [reposts, setReposts] = useSkinState<string[]>(p, "mymyXReposts", []),
     [marks, setMarks] = useSkinState<string[]>(p, "mymyXMarks", []),
-    [query, setQuery] = useState(""), [dmUser,setDmUser] = useState<Item | null>(null), [dmText,setDmText]=useState(""), [dmReplies,setDmReplies]=useSkinState<string[]>(p,"x-dm-replies",[]);
+    [query, setQuery] = useState(""),;
   const isLiked = (id: string) =>
     typeof p.ui?.["liked-" + id] === "boolean"
       ? Boolean(p.ui["liked-" + id])
@@ -656,6 +656,7 @@ export function MymyX(p: SkinProps) {
       : marks.includes(id);
   const toggle = (id: string, v: string[], set: (x: string[]) => void) =>
     set(v.includes(id) ? v.filter((x) => x !== id) : [...v, id]);
+  if (tab === "私信") return <DirectMessages p={p} platform="twitter" onExit={()=>setTab("推荐")} />;
   return (
     <div
       className={"mymy-ui mymy-x " + (dark ? "x-reference-dark" : "")}
@@ -780,7 +781,7 @@ export function MymyX(p: SkinProps) {
             <button
               key={n}
               aria-label={["时间线", "搜索", "通知", "私信"][n]}
-              onClick={() => {setDmUser(null);setTab(n===3?"私信":n===2?"通知":n===1?"搜索":"推荐")}}
+              onClick={() => {setTab(n===3?"私信":n===2?"通知":n===1?"搜索":"推荐")}}
             >
               <Icon />
             </button>
