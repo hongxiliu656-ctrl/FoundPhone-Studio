@@ -1,5 +1,6 @@
 import { StatusGlyph } from "./ios/StatusGlyph";
 import { CrisisChat } from "./skins/CrisisChat";
+import { InstagramErrorBoundary } from "./skins/InstagramErrorBoundary";
 import { SocialDetail, socialDetailApps } from "./skins/SocialDetails";
 import { NativeCalculator } from "./ios/Calculator";
 import { HomeLauncher } from "./launcher/HomeLauncher";
@@ -1060,6 +1061,7 @@ function AppContent({
     return (
       <>
         <div className="catalog-slot" hidden={!!detail}>
+          <InstagramErrorBoundary key={app.id}>
           <Suspense fallback={<div className="catalog-loading">正在打开…</div>}>
             <Skin
               appId={app.id}
@@ -1078,6 +1080,7 @@ function AppContent({
               onThread={setThread}
             />
           </Suspense>
+          </InstagramErrorBoundary>
         </div>
         {detail &&
           (socialDetailApps.has(app.id) &&
