@@ -327,11 +327,11 @@ export function MymyInstagram(p: SkinProps) {
     [story, setStory] = useState(0),
     [draft, setDraft] = useState(""),
     [pop, setPop] = useState("");
-  const posts = p.items.filter(
+  const posts = (p.items || []).filter(
       (i) => i.folder !== "私信" && i.meta?.type !== "dm" && i.meta?.story !== "true",
     ),
-    stories = p.items.filter((i) => i.meta?.story === "true"),
-    dms = p.items.filter((i) => i.folder === "私信"),
+    stories = (p.items || []).filter((i) => i.meta?.story === "true"),
+    dms = (p.items || []).filter((i) => i.folder === "私信"),
     active = stories[story - 1];
   const toggle = (id: string, values: string[], set: (v: string[]) => void) =>
     set(values.includes(id) ? values.filter((v) => v !== id) : [...values, id]);
@@ -587,7 +587,7 @@ export function MymyInstagram(p: SkinProps) {
             </header>
             <div className="mymy-comments">
               {[
-                ...sheet.comments,
+                ...(sheet.comments || []),
                 ...replies
                   .filter((r) => r.startsWith(sheet.id + "\t"))
                   .map((r) => r.split("\t").slice(1).join("\t")),
