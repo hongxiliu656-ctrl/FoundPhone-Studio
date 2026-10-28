@@ -1,4 +1,5 @@
 import { StatusGlyph } from "./ios/StatusGlyph";
+import { CrisisChat } from "./skins/CrisisChat";
 import { SocialDetail, socialDetailApps } from "./skins/SocialDetails";
 import { NativeCalculator } from "./ios/Calculator";
 import { HomeLauncher } from "./launcher/HomeLauncher";
@@ -1014,6 +1015,7 @@ function AppContent({
       )}
     </div>
   ) : null;
+  if (app.id === "kakao" && !creator) return <CrisisChat owner={work.phone.owner} />;
   if (Skin)
     return (
       <>
