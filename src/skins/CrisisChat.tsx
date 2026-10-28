@@ -73,7 +73,7 @@ export function CrisisChat({owner,history,step,onStep}:{owner:string;history:Ite
       {(section==="聊天"||section==="好友") && <label className="kakao-search"><Search size={15}/><input id="kakao-search" value={query} onChange={e=>setQuery(e.target.value)} placeholder="搜索"/></label>}
       <main className="kakao-list">
         {section==="好友" && <><div className="kakao-profile"><div className="kakao-profile-avatar">👤</div><span><strong>{owner}</strong><small>我的个人资料</small></span></div><div className="kakao-list-label">好友 {people.length}</div></>}
-        {(section==="好友"||section==="聊天")?people.filter(name=>name.includes(query)).map((name,i)=>{
+        {(section==="好友"||section==="聊天")?people.filter(name=>name.includes(query)).map(name=>{
           const idx=people.indexOf(name);
           const unread=!readRooms.includes(name) && (name===JK||step>=4);
           return <button className="kakao-row" key={name} onClick={()=>openRoom(name)}>
