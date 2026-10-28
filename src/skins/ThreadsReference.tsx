@@ -31,7 +31,7 @@ import { makeItem, type Item } from "../schema";
 import { useSkinState } from "../skinState";
 import "./threads-reference.css";
 export function ThreadsReference(p: SkinProps) {
-  const [tab, setTab] = useSkinState<string>(p, "threads-tab", "首页"),
+  const [tab, setTab] = useState<string>("首页"),
     [liked, setLiked] = useSkinState<string[]>(p, "threads-liked", []),
     [saved, setSaved] = useSkinState<string[]>(p, "threads-saved", []),
     [posts, setPosts] = useSkinState<string[]>(p, "threads-posts", []),
