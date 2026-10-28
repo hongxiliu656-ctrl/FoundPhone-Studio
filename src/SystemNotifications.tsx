@@ -55,11 +55,11 @@ export function SystemNotifications({
               key={text + "::" + index}
               initial={{ opacity: 0, y: 35, scale: 0.96 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
-              drag="x"
-              dragConstraints={{ left: 0, right: 0 }}
+              drag
+              dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
               dragElastic={0.3}
               onDragEnd={(_, info) => {
-                if (info.offset.x < -80) onDismiss(index);
+                if (info.offset.x < -80 || info.offset.y < -65) onDismiss(index);
               }}
             >
               <button className="notice-open" onClick={onOpen}>
