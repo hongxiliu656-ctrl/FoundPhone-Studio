@@ -5,6 +5,7 @@ import { AppArtwork } from "./AppArtwork";
 import type { Work } from "./schema";
 export function notificationContent(text: string, apps: Work["apps"]) {
   const parts = text.split(" · ");
+  if (/^田柾国[：:]/.test(text)) return {title:"田柾国",body:text.replace(/^田柾国[：:]/,""),appId:"kakao"};
   if (parts.length > 1) {
     const appName = parts[0];
     const detail = parts.slice(1).join(" · ");
