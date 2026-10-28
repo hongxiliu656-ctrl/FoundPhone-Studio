@@ -189,6 +189,8 @@ function PhoneRuntime({
     };
   }, [creator, ready]);
   const s = external ?? own;
+  const choiceKey = s.choices.map((c) => `${c.target}:${c.label}`).join("|");
+  const [dismissedChoiceKey, setDismissedChoiceKey] = useState("");
   const runtimeRef = useRef(s);
   runtimeRef.current = s;
   const update = (next: Runtime) => {
@@ -577,7 +579,7 @@ function PhoneRuntime({
               )}
             </div>
           )}
-          {!creator && s.choices.length > 0 && !locked && (
+          {!creator && s.choices.length > 0 && !locked && dismissedChoiceKey !== choiceKey && (
             <div className="story-overlay">
               <span className="eyebrow">故事来到一个岔路口</span>
               <h3>你会如何选择？</h3>
@@ -590,6 +592,12 @@ function PhoneRuntime({
                   <ArrowUp size={15} />
                 </button>
               ))}
+              <button
+                className="story-choice-cancel"
+                onClick={() => setDismissedChoiceKey(choiceKey)}
+              >
+                取消
+              </button>
             </div>
           )}
           {!creator && s.endings.length > 0 && !locked && (
