@@ -13,7 +13,7 @@ export function DirectMessages({p,platform,onExit}:{p:SkinProps;platform:"instag
   const [sent,setSent]=useSkinState<string[]>(p,platform+"-dm-sent",[]);
   const [readRooms,setReadRooms]=useSkinState<string[]>(p,platform+"-dm-read",[]);
   const end=useRef<HTMLDivElement>(null);
-  const all=p.items.filter(i=>i.folder==="私信" || i.meta.type==="dm" || i.meta.dm==="true");
+  const all=p.items.filter(i=>i.folder==="私信" || i.meta?.type==="dm" || i.meta?.dm==="true");
   const people=[...new Set(all.map(i=>i.sender || i.title))];
   const lines=all.filter(i=>(i.sender || i.title)===room || i.title===room);
   const mine=sent.flatMap(raw=>{try{const v:unknown=JSON.parse(raw);return Array.isArray(v)&&v.length===2&&v.every(x=>typeof x==="string")&&v[0]===room?[v[1] as string]:[]}catch{return []}});
