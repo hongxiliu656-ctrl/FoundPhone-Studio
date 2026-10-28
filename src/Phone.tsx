@@ -727,10 +727,37 @@ function PhoneRuntime({
           {banner && !locked && (
             <button
               className="device-banner"
-              onPointerDown={(event) => { bannerSwipeY.current = event.clientY; bannerSwiped.current = false; event.currentTarget.setPointerCapture(event.pointerId); }}
-              onPointerUp={(event) => { if (bannerSwipeY.current !== null && bannerSwipeY.current - event.clientY > 35) { bannerSwiped.current = true; setBanner(""); } bannerSwipeY.current = null; }}
-              onPointerCancel={() => { bannerSwipeY.current = null; }}
-              style={{ touchAction: "pan-x", cursor: "grab" }}
+              onTouchStart={(event) => { bannerSwipeY.current = event.touches[0]?.clientY ?? null; bannerSwiped.current = false; }}
+              onTouchMove={(event) => {
+                if (bannerSwipeY.current === null) return;
+                const delta = bannerSwipeY.current - (event.touches[0]?.clientY ?? bannerSwipeY.current);
+                if (delta > 0) event.currentTarget.style.transform = `translateY(-${Math.min(delta, 140)}px)`;
+              }}
+              onTouchEnd={(event) => {
+                const delta = bannerSwipeY.current === null ? 0 : bannerSwipeY.current - (event.changedTouches[0]?.clientY ?? bannerSwipeY.current);
+                bannerSwipeY.current = null;
+                if (delta > 30) {
+                  bannerSwiped.current = true;
+                  event.currentTarget.style.transition = "transform 180ms ease-out, opacity 180ms ease-out";
+                  event.currentTarget.style.transform = "translateY(-160px)";
+                  event.currentTarget.style.opacity = "0";
+                  setTimeout(() => setBanner(""), 180);
+                } else event.currentTarget.style.transform = "";
+              }}
+              onPointerDown={(event) => { if (event.pointerType === "mouse") bannerSwipeY.current = event.clientY; }}
+              onPointerUp={(event) => {
+                if (event.pointerType !== "mouse" || bannerSwipeY.current === null) return;
+                const delta = bannerSwipeY.current - event.clientY;
+                bannerSwipeY.current = null;
+                if (delta > 30) {
+                  bannerSwiped.current = true;
+                  event.currentTarget.style.transition = "transform 180ms ease-out, opacity 180ms ease-out";
+                  event.currentTarget.style.transform = "translateY(-160px)";
+                  event.currentTarget.style.opacity = "0";
+                  setTimeout(() => setBanner(""), 180);
+                }
+              }}
+              style={{ touchAction: "pan-y", cursor: "grab" }}
               onClick={() => {
                 if (bannerSwiped.current) { bannerSwiped.current = false; return; }
                 setBanner("");
