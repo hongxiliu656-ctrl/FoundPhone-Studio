@@ -435,7 +435,7 @@ export function MymyInstagram(p: SkinProps) {
       <p className="igt">{i.time}</p>
     </article>
   );
-  const celebrityPosts = posts.filter(i => i.sender === "mnijungkook" || i.sender === "thv");
+  const celebrityPosts = posts.filter(i => (i.sender === "mnijungkook" || i.sender === "thv") && i.kind !== "text");
   if (tab === "私信" && !selected && !viewProfile) return <DirectMessages p={p} platform="instagram" onExit={()=>setTab("主页")} />;
   return (
     <div className="mymy-ui mymy-instagram" data-mymy="instagram">
