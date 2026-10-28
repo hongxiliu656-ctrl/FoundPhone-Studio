@@ -194,6 +194,7 @@ function PhoneRuntime({
   const s = external ?? own;
   const choiceKey = s.choices.map((c) => `${c.target}:${c.label}`).join("|");
   const [dismissedChoiceKey, setDismissedChoiceKey] = useState("");
+  const [finalNoteOpened, setFinalNoteOpened] = useState(false);
   const runtimeRef = useRef(s);
   runtimeRef.current = s;
   const update = (next: Runtime) => {
@@ -249,6 +250,7 @@ function PhoneRuntime({
     return () => clearInterval(interval);
   }, [creator, ready, work.id, work.updatedAt]);
   const event = (event: string, target: string) => {
+    if (event === "read" && target === "note-last-message") { setFinalNoteOpened(true); setDismissedChoiceKey(""); }
     if (!creator) update(dispatch(work, runtimeRef.current, event, target));
   };
   const captureApp = () => {
@@ -608,7 +610,7 @@ function PhoneRuntime({
               )}
             </div>
           )}
-          {!creator && s.choices.length > 0 && !locked && dismissedChoiceKey !== choiceKey && (
+          {!creator && s.choices.length > 0 && finalNoteOpened && !locked && dismissedChoiceKey !== choiceKey && (
             <div className="story-overlay">
               <span className="eyebrow">故事来到一个岔路口</span>
               <h3>你会如何选择？</h3>
@@ -1021,7 +1023,7 @@ function AppContent({
               {c}
             </p>
           ))}
-          {detail.meta?.type === "dm" && ["twitter", "instagram"].includes(app.id) && (
+          {detail.meta?.type === "dm" && ["twitter", "instagram", "threads"].includes(app.id) && (
             <section className="simulated-dm-thread">
               <p className="detail-meta">以下为虚构互动剧情</p>
               {dmReplies.map((reply, i) => <p className="comment" key={i}>{reply}</p>)}
