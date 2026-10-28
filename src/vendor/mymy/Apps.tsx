@@ -1,3 +1,4 @@
+import { DirectMessages } from "../../skins/DirectMessages";
 /* React/data adapters for dudwo5/Mymy UI templates: kt/ktn/KHD/bub,
  * igHome/igProfile/igDM/igSheet, xHome. See NOTICE.txt for permission.
  * Author content, DOM globals, timers and media dependencies are excluded. */
@@ -432,6 +433,7 @@ export function MymyInstagram(p: SkinProps) {
       <p className="igt">{i.time}</p>
     </article>
   );
+  if (tab === "私信" && !selected) return <DirectMessages p={p} platform="instagram" onExit={()=>setTab("主页")} />;
   return (
     <div className="mymy-ui mymy-instagram" data-mymy="instagram">
       <div className="ig">
