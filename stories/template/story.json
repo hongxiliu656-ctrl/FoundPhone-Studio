@@ -10,7 +10,7 @@
     "time": "09:41",
     "battery": 86,
     "network": "5G",
-    "wallpaper": "apple-wwdc26",
+    "wallpaper": "/FoundPhone-Studio/photos/01.jpeg",
     "passcode": "0901",
     "theme": "dark",
     "notifications": true
@@ -392,18 +392,124 @@
     "phone": [],
     "photos": [
       {
-        "id": "photo-placeholder-1",
-        "title": "最近项目",
-        "body": "相册内容暂时留白。等你提供照片后再替换成对应图片。",
+        "id": "photo-02",
+        "title": "IMG_0002",
+        "body": "",
         "kind": "image",
+        "media": "/FoundPhone-Studio/photos/02.jpeg",
         "time": "最近"
       },
       {
-        "id": "photo-placeholder-2",
-        "title": "收藏",
-        "body": "等待添加照片。",
+        "id": "photo-03",
+        "title": "IMG_0003",
+        "body": "",
         "kind": "image",
-        "time": "上周"
+        "media": "/FoundPhone-Studio/photos/03.jpeg",
+        "time": "最近"
+      },
+      {
+        "id": "photo-04",
+        "title": "IMG_0004",
+        "body": "",
+        "kind": "image",
+        "media": "/FoundPhone-Studio/photos/04.jpeg",
+        "time": "最近"
+      },
+      {
+        "id": "photo-05",
+        "title": "IMG_0005",
+        "body": "",
+        "kind": "image",
+        "media": "/FoundPhone-Studio/photos/05.jpeg",
+        "time": "最近"
+      },
+      {
+        "id": "photo-06",
+        "title": "IMG_0006",
+        "body": "",
+        "kind": "image",
+        "media": "/FoundPhone-Studio/photos/06.jpeg",
+        "time": "最近"
+      },
+      {
+        "id": "photo-07",
+        "title": "IMG_0007",
+        "body": "",
+        "kind": "image",
+        "media": "/FoundPhone-Studio/photos/07.jpeg",
+        "time": "最近"
+      },
+      {
+        "id": "photo-08",
+        "title": "IMG_0008",
+        "body": "",
+        "kind": "image",
+        "media": "/FoundPhone-Studio/photos/08.jpeg",
+        "time": "最近"
+      },
+      {
+        "id": "photo-09",
+        "title": "IMG_0009",
+        "body": "",
+        "kind": "image",
+        "media": "/FoundPhone-Studio/photos/09.jpeg",
+        "time": "最近"
+      },
+      {
+        "id": "photo-10",
+        "title": "IMG_0010",
+        "body": "",
+        "kind": "image",
+        "media": "/FoundPhone-Studio/photos/10.jpeg",
+        "time": "最近"
+      },
+      {
+        "id": "photo-11",
+        "title": "IMG_0011",
+        "body": "",
+        "kind": "image",
+        "media": "/FoundPhone-Studio/photos/11.jpeg",
+        "time": "最近"
+      },
+      {
+        "id": "photo-12",
+        "title": "IMG_0012",
+        "body": "",
+        "kind": "image",
+        "media": "/FoundPhone-Studio/photos/12.jpeg",
+        "time": "最近"
+      },
+      {
+        "id": "photo-13",
+        "title": "IMG_0013",
+        "body": "",
+        "kind": "image",
+        "media": "/FoundPhone-Studio/photos/13.jpeg",
+        "time": "最近"
+      },
+      {
+        "id": "photo-14",
+        "title": "IMG_0014",
+        "body": "",
+        "kind": "image",
+        "media": "/FoundPhone-Studio/photos/14.jpeg",
+        "time": "最近"
+      },
+      {
+        "id": "photo-15",
+        "title": "IMG_0015",
+        "body": "",
+        "kind": "image",
+        "media": "/FoundPhone-Studio/photos/15.jpeg",
+        "time": "最近"
+      },
+      {
+        "id": "photo-16",
+        "title": "IMG_0016",
+        "body": "",
+        "kind": "image",
+        "media": "/FoundPhone-Studio/photos/16.jpeg",
+        "time": "最近"
       }
     ],
     "settings": [
