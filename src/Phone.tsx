@@ -204,6 +204,7 @@ function PhoneRuntime({
   const [dismissedChoiceKey, setDismissedChoiceKey] = useState("");
   const [finalNoteOpened, setFinalNoteOpened] = useState(false);
   const [endingNarrationDismissed, setEndingNarrationDismissed] = useState(false);
+  const [endingPostVisited, setEndingPostVisited] = useState(false);
   const endingNotified = useRef(false);
   useEffect(() => { if (!stayEnding || locked || endingNotified.current) return; endingNotified.current = true; setBanner("Instagram · mnijungkook 发布了新帖子：with you"); }, [stayEnding, locked]);
   const runtimeRef = useRef(s);
@@ -644,7 +645,7 @@ function PhoneRuntime({
               </button>
             </div>
           )}
-          {!creator && s.endings.length > 0 && !locked && !endingNarrationDismissed && (
+          {!creator && s.endings.length > 0 && !locked && !endingNarrationDismissed && (!stayEnding || (endingPostVisited && app !== "instagram")) && (
             <button className="story-overlay ending" onClick={() => setEndingNarrationDismissed(true)} style={{width:"100%",height:"100%",border:0,cursor:"pointer",textAlign:"center",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:16}}>
               <span className="eyebrow">ENDING</span>
               <h2>结局已定，{work.phone.owner || "玩家"}</h2>
@@ -759,7 +760,10 @@ function PhoneRuntime({
               onClick={() => {
                 if (bannerSwiped.current) { bannerSwiped.current = false; return; }
                 setBanner("");
-                setPanel("notification");
+                if (stayEnding && banner.includes("mnijungkook 发布了新帖子")) {
+                  setApp("instagram");
+                  setEndingPostVisited(true);
+                } else setPanel("notification");
               }}
             >
               <AppIcon
