@@ -199,8 +199,12 @@ function PhoneRuntime({
   }, [creator, ready]);
   const s = external ?? own;
   const choiceKey = s.choices.map((c) => `${c.target}:${c.label}`).join("|");
+  const stayEnding = s.endings.some(e => e.startsWith("继续："));
   const [dismissedChoiceKey, setDismissedChoiceKey] = useState("");
   const [finalNoteOpened, setFinalNoteOpened] = useState(false);
+  const [endingNarrationDismissed, setEndingNarrationDismissed] = useState(false);
+  const endingNotified = useRef(false);
+  useEffect(() => { if (!stayEnding || locked || endingNotified.current) return; endingNotified.current = true; setBanner("Instagram · mnijungkook 发布了新帖子：with you"); }, [stayEnding, locked]);
   const runtimeRef = useRef(s);
   runtimeRef.current = s;
   const update = (next: Runtime) => {
@@ -483,6 +487,7 @@ function PhoneRuntime({
                     work.apps.find((a) => a.id === app)?.name ?? plugin.name
                   }
                   items={[
+                    ...(app === "instagram" && stayEnding ? [{ id: "jk-ending-with-you", title: "with you", body: `with you@${work.phone.owner || "player"}`, sender: "mnijungkook", time: "刚刚", kind: "image", media: "/FoundPhone-Studio/photos/ending-with-you.jpg", likes: 928440, comments: [], meta: { location: "Seoul" } } as Item] : []),
                     ...(work.data[app] ?? []),
                     ...(s.messages[app] ?? []),
                   ]}
@@ -638,21 +643,13 @@ function PhoneRuntime({
               </button>
             </div>
           )}
-          {!creator && s.endings.length > 0 && !locked && (
-            <div className="story-overlay ending">
-              <span className="eyebrow">ENDING · {s.endings.length}</span>
-              <h2>故事在这里停泊。</h2>
-              <p>{s.endings[s.endings.length - 1]}</p>
-              <button
-                onClick={() => {
-                  update(dispatch(work, initialRuntime(work), "start"));
-                  setApp("");
-                  setLocked(true);
-                }}
-              >
-                重新开始
-              </button>
-            </div>
+          {!creator && s.endings.length > 0 && !locked && !endingNarrationDismissed && (
+            <button className="story-overlay ending" onClick={() => setEndingNarrationDismissed(true)} style={{width:"100%",height:"100%",border:0,cursor:"pointer",textAlign:"center",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:16}}>
+              <span className="eyebrow">ENDING</span>
+              <h2>结局已定，{work.phone.owner || "玩家"}</h2>
+              <p>现在可自行探索。</p>
+              <small>点击任意位置继续</small>
+            </button>
           )}
           {!creator && s.incomingCall && (
             <div className="incoming-call-screen">
