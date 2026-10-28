@@ -1,4 +1,5 @@
 import { useState } from "react";
+import type { Item } from "../schema";
 import "./crisis-chat.css";
 
 type Line = { who: string; text: string };
@@ -19,7 +20,7 @@ const sequence = [
   {who:"我",text:"我现在真的很累。"},
   {who:"田柾国 🐰",text:"等我回来，我们当面谈。无论你做什么决定，我都会听你说。"}
 ];
-export function CrisisChat({owner}:{owner:string}) {
+export function CrisisChat({owner,history}:{owner:string;history:Item[]}) {
   const [step,setStep]=useState(0);
   const [room,setRoom]=useState("田柾国 🐰");
   const [keyboard,setKeyboard]=useState(false);
@@ -28,7 +29,8 @@ export function CrisisChat({owner}:{owner:string}) {
   const active = room === "田柾国 🐰";
   const current = sequence[step];
   const contacts = ["田柾国 🐰","金泰亨","妈妈","朋友"];
-  const messages = active ? [...opening,...sequence.slice(0,step)] : incoming[room] || [];
+  const previous = history.filter(i=>i.title===room && !i.id.startsWith("crisis-")).slice(-18).map(i=>({who:i.sender===owner?"我":room,text:i.body}));
+  const messages = active ? [...previous,...opening,...sequence.slice(0,step)] : [...previous,...(step>=4?incoming[room]||[]:[])];
   const advance=()=>{
     if(!current)return;
     setStep(v=>v+1);
