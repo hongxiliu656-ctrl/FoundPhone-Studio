@@ -72,6 +72,7 @@ export function AppIcon({
   custom = "",
   date,
   time,
+  badge = 0,
 }: {
   id: string;
   name?: string;
@@ -79,6 +80,7 @@ export function AppIcon({
   custom?: string;
   date?: string;
   time?: string;
+  badge?: number;
 }) {
   const a = getApp(id);
   const Icon = a.icon;
@@ -97,6 +99,7 @@ export function AppIcon({
           <Icon size={small ? 21 : 28} strokeWidth={1.65} />
         )}
       </span>
+      {badge > 0 && <span className="app-notification-badge">{badge > 99 ? "99+" : badge}</span>}
       {name && <span className="app-name">{name}</span>}
     </span>
   );
@@ -536,6 +539,7 @@ function PhoneRuntime({
                     custom={a.icon}
                     date={s.date || work.phone.date}
                     time={s.time}
+                    badge={creator ? 0 : allNotices.filter(n => notificationContent(n, work.apps).appId === a.id).length}
                   />
                 )}
                 clearApp={(id) =>
