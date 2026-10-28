@@ -1062,7 +1062,7 @@ function AppContent({
       <div className="app-nav">
         <button onClick={back} aria-label="返回">
           <ChevronLeft size={23} />
-          {detail || thread ? "返回" : ""}
+          {detail ? (detail.title === "最后一次编辑" ? "取消" : "返回") : thread ? "返回" : ""}
         </button>
         <strong>{thread || name}</strong>
         <button
