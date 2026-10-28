@@ -34,7 +34,7 @@ export function CrisisChat({owner,history,step,onStep}:{owner:string;history:Ite
   const current = sequence[step];
   const contacts = ["田柾国 🐰","金泰亨","妈妈","朋友"];
   const previous = history.filter(i=>i.title===room && !i.id.startsWith("crisis-")).slice(-18).map(i=>({who:i.sender===owner?"我":room,text:i.body}));
-  const messages = active ? [...previous,...opening,...sequence.slice(0,step)] : [...previous,...(step>=4?incoming[room]||[]:[])];
+  const messages = active ? [...previous,...opening,...sequence.slice(0,step)] : [...previous,...(step>=4?incoming[room || ""]||[]:[])];
   const advance=()=>{
     if(!current)return;
     onStep?.(step+1);
