@@ -1,3 +1,4 @@
+import { DirectMessages } from "./DirectMessages";
 import { useState } from "react";
 import {
   Home,
@@ -130,6 +131,7 @@ export function ThreadsReference(p: SkinProps) {
       </div>
     </article>
   );
+  if (tab === "消息" && !selected) return <DirectMessages p={p} platform="threads" onExit={()=>setTab("首页")} />;
   return (
     <div className="threads-reference">
       <div className="tr-scroll">
