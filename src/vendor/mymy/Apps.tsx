@@ -774,7 +774,7 @@ export function MymyX(p: SkinProps) {
                 </div>
               </article>
             ))}
-          {!p.items.length && <Blank />}</>}
+          {!p.items.length && <Blank />}</>
         </div>
         <nav className="kzxnav">
           {[Home, Search, Bell, MessageCircle].map((Icon, n) => (
