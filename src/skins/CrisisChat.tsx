@@ -20,8 +20,8 @@ const sequence = [
   {who:"我",text:"我现在真的很累。"},
   {who:"田柾国 🐰",text:"等我回来，我们当面谈。无论你做什么决定，我都会听你说。"}
 ];
-export function CrisisChat({owner,history}:{owner:string;history:Item[]}) {
-  const [step,setStep]=useState(0);
+export function CrisisChat({owner,history,step,onStep}:{owner:string;history:Item[];step:number;onStep?:(n:number)=>void}) {
+
   const [room,setRoom]=useState("田柾国 🐰");
   const [keyboard,setKeyboard]=useState(false);
   const [choice,setChoice]=useState("");
@@ -33,7 +33,7 @@ export function CrisisChat({owner,history}:{owner:string;history:Item[]}) {
   const messages = active ? [...previous,...opening,...sequence.slice(0,step)] : [...previous,...(step>=4?incoming[room]||[]:[])];
   const advance=()=>{
     if(!current)return;
-    setStep(v=>v+1);
+    onStep?.(step+1);
     setKeyboard(false);
   };
   return <div className="crisis-chat">
