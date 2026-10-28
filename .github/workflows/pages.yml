@@ -19,6 +19,12 @@ jobs:
         with:
           node-version: 22
           cache: npm
+      - name: Extract phone photos
+        run: |
+          mkdir -p public/photos
+          unzip -o -j 'public/模拟器照片.zip' '模拟器照片/*.jpeg' -d public/photos
+          test -f public/photos/01.jpeg
+          test -f public/photos/16.jpeg
       - run: npm ci
       - run: npm run typecheck
       - run: npm run lint
