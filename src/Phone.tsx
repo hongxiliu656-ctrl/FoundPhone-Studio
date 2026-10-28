@@ -505,7 +505,6 @@ function PhoneRuntime({
                   work={work}
                   crisisStep={crisisStep}
                   onCrisisStep={setCrisisStep}
-                  fanWave={fanWave}
                 />
               </AppWindow>
             ) : (
@@ -906,7 +905,6 @@ function AppContent({
   work,
   crisisStep = 0,
   onCrisisStep,
-  fanWave = 0,
 }: {
   app: AppPlugin;
   name: string;
@@ -922,7 +920,6 @@ function AppContent({
   work: Work;
   crisisStep?: number;
   onCrisisStep?: (step: number) => void;
-  fanWave?: number;
 }) {
   const [detail, setDetail] = useState<Item | null>(null);
   const [thread, setThread] = useState("");
