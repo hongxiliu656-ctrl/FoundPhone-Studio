@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { ArrowLeft, Search, Menu, UserRound, MessageCircle, Compass, MoreHorizontal, Plus, Smile, Send, Settings } from "lucide-react";
 import type { Item } from "../schema";
 import "./crisis-chat.css";
+import "./kakao-real.css";
 
 type Line = { who: string; text: string };
 const JK = "田柾国 🐰";
@@ -82,7 +83,7 @@ export function CrisisChat({owner,history,step,onStep}:{owner:string;history:Ite
           </button>;
         }):<div className="kakao-placeholder">{section==="发现"?"发现好友与频道":"更多设置"}</div>}
       </main>
-      <nav className="kakao-tabs">{[["好友",UserRound],["聊天",MessageCircle],["发现",Compass],["更多",MoreHorizontal]].map(([name,Icon])=><button key={name as string} className={section===name?"active":""} onClick={()=>{setSection(name as string);setQuery("");}}><Icon size={23}/><span>{name as string}</span></button>)}</nav>
+      <nav className="kakao-tabs">{[{name:"好友",Icon:UserRound},{name:"聊天",Icon:MessageCircle},{name:"发现",Icon:Compass},{name:"更多",Icon:MoreHorizontal}].map(({name,Icon})=><button key={name} className={section===name?"active":""} onClick={()=>{setSection(name);setQuery("");}}><Icon size={23}/><span>{name}</span></button>)}</nav>
     </>:<>
       <header className="kakao-room-head"><button aria-label="返回聊天列表" onClick={()=>setRoom(null)}><ArrowLeft size={23}/></button><strong>{room}</strong><div><button aria-label="搜索聊天"><Search size={21}/></button><button aria-label="聊天菜单"><Menu size={22}/></button></div></header>
       <main className="kakao-messages" ref={scroll}>
