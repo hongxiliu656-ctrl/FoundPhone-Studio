@@ -692,7 +692,7 @@ export function MymyX(p: SkinProps) {
             placeholder="搜索"
           />
         )}
-        <div className="kzxfd">{tab === "私信" ? (dmUser ? <><button onClick={()=>setDmUser(null)}>‹ 返回消息</button><h3>{dmUser.sender}</h3><p>{dmUser.body}</p>{dmReplies.filter(v=>v.startsWith(dmUser.id+"\t")).map((v,n)=><p key={n} style={{textAlign:"right"}}>{v.split("\t").slice(1).join("\t")}</p>)}<form onSubmit={e=>{e.preventDefault();if(dmText.trim()){setDmReplies([...dmReplies,dmUser.id+"\t"+dmText.trim()]);setDmText("");}}}><input placeholder="开始一条消息" value={dmText} onChange={e=>setDmText(e.target.value)}/><button>发送</button></form></> : p.items.filter(i=>i.folder==="私信"||i.meta.type==="dm").map(i=><button key={i.id} onClick={()=>{read(p,i);setDmUser(i)}}><Avatar name={i.sender}/><strong>{i.sender}</strong><p>{i.body}</p></button>)) : <>
+        <div className="kzxfd"><>
           {p.items
             .filter((i) => (i.title + i.body).includes(query))
             .map((i) => (
