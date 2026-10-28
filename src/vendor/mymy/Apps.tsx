@@ -469,7 +469,7 @@ export function MymyInstagram(p: SkinProps) {
           {!selected && !viewProfile && tab === "主页" && (
             <>
               <div className="sts">
-                {stories.map((s, n) => (
+                {stories.filter(s => s.sender === "mnijungkook" || s.sender === "thv").map((s, n) => (
                   <button
                     className="st"
                     key={s.id}
@@ -484,8 +484,8 @@ export function MymyInstagram(p: SkinProps) {
                   </button>
                 ))}
               </div>
-              {posts.map(post)}
-              {!posts.length && <Blank />}
+              {celebrityPosts.map(post)}
+              {!celebrityPosts.length && <Blank />}
             </>
           )}
           {!selected && !viewProfile && tab === "个人主页" && (
