@@ -560,29 +560,42 @@
     ],
     "instagram": [
       {
-        "id": "ig-jungkook-profile",
-        "title": "jungkook.97 · Instagram 主页",
-        "body": "田柾国的 Instagram 公开主页入口：https://www.instagram.com/jungkook.97/\n本模拟器的贴文与互动为虚构，不代表真实账号近期发布内容。",
-        "kind": "post",
-        "time": "主页",
-        "sender": "jungkook.97",
-        "likes": 0,
+        "id": "ig-mnijungkook-post",
+        "title": "Jung Kook · 近况",
+        "body": "📸",
+        "kind": "image",
+        "media": "/FoundPhone-Studio/photos/02.jpeg",
+        "avatar": "/FoundPhone-Studio/photos/02.jpeg",
+        "time": "游戏内模拟帖子",
+        "sender": "mnijungkook",
+        "likes": 214832,
         "comments": [
-          "（模拟评论）今天的舞台太帅了！",
-          "主页链接可打开真实公开账号。"
-        ]
+          "舞台上的你真的很耀眼 💜",
+          "好想念你的更新！",
+          "这张照片氛围感太好了。"
+        ],
+        "meta": {
+          "location": "Jung Kook · 模拟动态"
+        }
       },
       {
-        "id": "ig-thv-profile",
-        "title": "thv · Instagram 主页",
-        "body": "金泰亨的 Instagram 公开主页入口：https://www.instagram.com/thv/\n以下互动内容为本模拟器虚构。",
-        "kind": "post",
-        "time": "主页",
+        "id": "ig-thv-post",
+        "title": "V · 近况",
+        "body": "🤎",
+        "kind": "image",
+        "media": "/FoundPhone-Studio/photos/03.jpeg",
+        "avatar": "/FoundPhone-Studio/photos/03.jpeg",
+        "time": "游戏内模拟帖子",
         "sender": "thv",
-        "likes": 0,
+        "likes": 186420,
         "comments": [
-          "（模拟评论）照片氛围感好绝。"
-        ]
+          "泰亨的照片真的很有电影感。",
+          "好喜欢这个氛围 🤎",
+          "期待更多照片！"
+        ],
+        "meta": {
+          "location": "V · 模拟动态"
+        }
       },
       {
         "id": "ig-j.m-profile",
