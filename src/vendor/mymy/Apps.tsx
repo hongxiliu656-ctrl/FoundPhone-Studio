@@ -328,9 +328,9 @@ export function MymyInstagram(p: SkinProps) {
     [draft, setDraft] = useState(""),
     [pop, setPop] = useState("");
   const posts = p.items.filter(
-      (i) => i.folder !== "私信" && i.meta.type !== "dm" && i.meta.story !== "true",
+      (i) => i.folder !== "私信" && i.meta?.type !== "dm" && i.meta?.story !== "true",
     ),
-    stories = p.items.filter((i) => i.meta.story === "true"),
+    stories = p.items.filter((i) => i.meta?.story === "true"),
     dms = p.items.filter((i) => i.folder === "私信"),
     active = stories[story - 1];
   const toggle = (id: string, values: string[], set: (v: string[]) => void) =>
@@ -364,7 +364,7 @@ export function MymyInstagram(p: SkinProps) {
           <button onClick={() => {setSelected(null);setViewProfile(i.sender);}}>
             <b>{i.sender}</b>
           </button>
-          <small>{i.meta.location || i.time}</small>
+          <small>{i.meta?.location || i.time}</small>
         </div>
         <button aria-label="帖子详情" onClick={() => openPost(i)}>
           <MoreHorizontal />
@@ -418,7 +418,7 @@ export function MymyInstagram(p: SkinProps) {
           <Bookmark fill={saved.includes(i.id) ? "currentColor" : "none"} />
         </button>
       </div>
-      <p className="lk2">{i.likes + (liked.includes(i.id) ? 1 : 0)} 次赞</p>
+      <p className="lk2">{(Number(i.likes) || 0) + (liked.includes(i.id) ? 1 : 0)} 次赞</p>
       <button
         className="igc"
         onClick={() => {
@@ -429,7 +429,7 @@ export function MymyInstagram(p: SkinProps) {
       </button>
       <button className="cmall" onClick={() => setSheet(i)}>
         查看评论{" "}
-        {i.comments.length +
+        {(i.comments?.length || 0) +
           replies.filter((r) => r.startsWith(i.id + "\t")).length}
       </button>
       <p className="igt">{i.time}</p>
