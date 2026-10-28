@@ -504,6 +504,7 @@ function PhoneRuntime({
                   }}
                   work={work}
                   crisisStep={crisisStep}
+                  fanWave={fanWave}
                   onCrisisStep={setCrisisStep}
                 />
               </AppWindow>
@@ -904,6 +905,7 @@ function AppContent({
   onUi,
   work,
   crisisStep = 0,
+  fanWave = 0,
   onCrisisStep,
 }: {
   app: AppPlugin;
@@ -919,6 +921,7 @@ function AppContent({
   onUi?: (key: string, value: UiValue) => void;
   work: Work;
   crisisStep?: number;
+  fanWave?: number;
   onCrisisStep?: (step: number) => void;
 }) {
   const [detail, setDetail] = useState<Item | null>(null);
@@ -931,7 +934,7 @@ function AppContent({
   const [likes, setLikes] = useState<string[]>([]);
   const [dmDraft, setDmDraft] = useState("");
   const [dmReplies, setDmReplies] = useState<string[]>([]);
-  const shown = items
+  const shown = [...items, ...(["twitter","instagram","threads"].includes(app.id) ? Array.from({length:fanWave},(_,i)=>({...items[0],id:"incoming-fan-"+i,title:"私信请求 · @fan_"+i,body:"你的账号又被转发了。",sender:"fan_"+i,time:"刚刚",meta:{type:"dm"}} as Item)) : [])]
     .filter((i) => creator || visible(i, state))
     .filter((i) =>
       (i.title + i.body + i.sender).toLowerCase().includes(q.toLowerCase()),
