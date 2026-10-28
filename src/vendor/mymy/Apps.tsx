@@ -643,7 +643,7 @@ export function MymyX(p: SkinProps) {
     [likes, setLikes] = useSkinState<string[]>(p, "mymyXLikes", []),
     [reposts, setReposts] = useSkinState<string[]>(p, "mymyXReposts", []),
     [marks, setMarks] = useSkinState<string[]>(p, "mymyXMarks", []),
-    [query, setQuery] = useState("");
+    [query, setQuery] = useState(""), [dmUser,setDmUser] = useState<Item | null>(null), [dmText,setDmText]=useState(""), [dmReplies,setDmReplies]=useSkinState<string[]>(p,"x-dm-replies",[]);
   const isLiked = (id: string) =>
     typeof p.ui?.["liked-" + id] === "boolean"
       ? Boolean(p.ui["liked-" + id])
@@ -669,7 +669,7 @@ export function MymyX(p: SkinProps) {
             <User />
           </button>
         </header>
-        <div className="kzxtb">
+        {tab === "私信" ? <div className="kzxtb"><strong>消息</strong><button onClick={()=>setDmUser(null)}>收件箱</button></div> : <div className="kzxtb">
           {["为你推荐", "正在关注", "添加 +", "时间"].map((t) => (
             <button
               className={t === tab ? "on" : ""}
@@ -689,7 +689,7 @@ export function MymyX(p: SkinProps) {
             placeholder="搜索"
           />
         )}
-        <div className="kzxfd">
+        <div className="kzxfd">{tab === "私信" ? (dmUser ? <><button onClick={()=>setDmUser(null)}>‹ 返回消息</button><h3>{dmUser.sender}</h3><p>{dmUser.body}</p>{dmReplies.filter(v=>v.startsWith(dmUser.id+"\t")).map((v,n)=><p key={n} style={{textAlign:"right"}}>{v.split("\t").slice(1).join("\t")}</p>)}<form onSubmit={e=>{e.preventDefault();if(dmText.trim()){setDmReplies([...dmReplies,dmUser.id+"\t"+dmText.trim()]);setDmText("");}}}><input placeholder="开始一条消息" value={dmText} onChange={e=>setDmText(e.target.value)}/><button>发送</button></form></> : p.items.filter(i=>i.folder==="私信"||i.meta.type==="dm").map(i=><button key={i.id} onClick={()=>{read(p,i);setDmUser(i)}}><Avatar name={i.sender}/><strong>{i.sender}</strong><p>{i.body}</p></button>)) : <>
           {p.items
             .filter((i) => (i.title + i.body).includes(query))
             .map((i) => (
@@ -771,15 +771,14 @@ export function MymyX(p: SkinProps) {
                 </div>
               </article>
             ))}
-          {!p.items.length && <Blank />}
+          {!p.items.length && <Blank />}</>}
         </div>
         <nav className="kzxnav">
           {[Home, Search, Bell, MessageCircle].map((Icon, n) => (
             <button
               key={n}
               aria-label={["时间线", "搜索", "通知", "私信"][n]}
-              onClick={() => n < 2 && setTab(n ? "搜索" : "推荐")}
-              disabled={n > 1}
+              onClick={() => {setDmUser(null);setTab(n===3?"私信":n===2?"通知":n===1?"搜索":"推荐")}}
             >
               <Icon />
             </button>
