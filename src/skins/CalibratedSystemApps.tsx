@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Heart,
   Users,
@@ -378,6 +378,28 @@ export function WeatherSkin(p: Props) {
     [mode, setMode] = useState("temperature"),
     [sheet, setSheet] = useState(""),
     [query, setQuery] = useState("");
+  const [liveWeather, setLiveWeather] = useState<{temperature:number; apparent:number; humidity:number; code:number; high:number; low:number; updated:string} | null>(null);
+  useEffect(() => {
+    const controller = new AbortController();
+    fetch("https://api.open-meteo.com/v1/forecast?latitude=37.5665&longitude=126.9780&current=temperature_2m,apparent_temperature,relative_humidity_2m,weather_code&daily=temperature_2m_max,temperature_2m_min&timezone=Asia%2FSeoul&forecast_days=1", {signal: controller.signal})
+      .then((response) => { if (!response.ok) throw new Error("weather unavailable"); return response.json(); })
+      .then((data) => {
+        const current = data.current, daily = data.daily;
+        if (typeof current?.temperature_2m !== "number") throw new Error("weather unavailable");
+        setLiveWeather({
+          temperature: Math.round(current.temperature_2m),
+          apparent: Math.round(current.apparent_temperature ?? current.temperature_2m),
+          humidity: Number(current.relative_humidity_2m ?? 0),
+          code: Number(current.weather_code ?? 0),
+          high: Math.round(daily?.temperature_2m_max?.[0] ?? current.temperature_2m),
+          low: Math.round(daily?.temperature_2m_min?.[0] ?? current.temperature_2m),
+          updated: String(current.time ?? "")
+        });
+      })
+      .catch(() => { if (!controller.signal.aborted) setLiveWeather(null); });
+    return () => controller.abort();
+  }, []);
+  const weatherCondition = (code: number) => code === 0 ? "晴朗" : code <= 3 ? "多云" : code <= 48 ? "有雾" : code <= 67 ? "雨" : code <= 77 ? "降雪" : code <= 82 ? "阵雨" : code <= 86 ? "阵雪" : "雷雨";
   const item = p.items[index] || p.items[0],
     hourly = listMeta(item, "hourly"),
     daily = listMeta(item, "daily");
@@ -395,14 +417,14 @@ export function WeatherSkin(p: Props) {
       <div className="weather-stars" aria-hidden="true" />
       <div className="weather-native-scroll">
         <section className="weather-native-current">
-          <small>{item ? meta(item, "locationLabel", "城市") : "天气"}</small>
+          <small>{item ? meta(item, "locationLabel", "城市") : "天气"} · {liveWeather ? "实时更新" : "连接天气中"}</small>
           <h1>{item?.title || "未添加城市"}</h1>
-          <output>{meta(item, "temperature", "—")}°</output>
+          <output>{liveWeather ? liveWeather.temperature : meta(item, "temperature", "—")}°</output>
           <div className="weather-high-low">
-            <span>最高 {meta(item, "high", "—")}°</span>
-            <span>最低 {meta(item, "low", "—")}°</span>
+            <span>最高 {liveWeather ? liveWeather.high : meta(item, "high", "—")}°</span>
+            <span>最低 {liveWeather ? liveWeather.low : meta(item, "low", "—")}°</span>
           </div>
-          <p>{meta(item, "condition", "暂无天气数据")}</p>
+          <p>{liveWeather ? `${weatherCondition(liveWeather.code)} · 体感 ${liveWeather.apparent}° · 湿度 ${liveWeather.humidity}%` : "实时天气暂时不可用"}</p>
           <MoonStar className="weather-moon-art" size={55} />
         </section>
         <button
