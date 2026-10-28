@@ -889,6 +889,8 @@ function AppContent({
   const [unlocks, setUnlocks] = useState<string[]>([]);
   const [pwError, setPwError] = useState("");
   const [likes, setLikes] = useState<string[]>([]);
+  const [dmDraft, setDmDraft] = useState("");
+  const [dmReplies, setDmReplies] = useState<string[]>([]);
   const shown = items
     .filter((i) => creator || visible(i, state))
     .filter((i) =>
@@ -976,6 +978,30 @@ function AppContent({
               {c}
             </p>
           ))}
+          {detail.meta?.type === "dm" && ["twitter", "instagram"].includes(app.id) && (
+            <section className="simulated-dm-thread">
+              <p className="detail-meta">以下为虚构互动剧情</p>
+              {dmReplies.map((reply, i) => <p className="comment" key={i}>{reply}</p>)}
+              <form
+                className="simulated-dm-compose"
+                onSubmit={(event) => {
+                  event.preventDefault();
+                  const text = dmDraft.trim();
+                  if (!text) return;
+                  const handle = detail.sender ? "@" + detail.sender : "@fan_account";
+                  const repliesSoFar = dmReplies.filter((reply) => reply.startsWith((work.phone.owner || "玩家") + "：")).length;
+                  const response = repliesSoFar >= 1
+                    ? "@screenshot__daily：这段私信被截图转发了。内容仅为模拟剧情。"
+                    : handle + "：我看到了你的回复，但请不要把私人猜测当作事实。";
+                  setDmReplies([...dmReplies, (work.phone.owner || "玩家") + "：" + text, response]);
+                  setDmDraft("");
+                }}
+              >
+                <input aria-label="回复模拟私信" value={dmDraft} onChange={(event) => setDmDraft(event.target.value)} placeholder="输入回复…" />
+                <button type="submit" disabled={!dmDraft.trim()}>发送</button>
+              </form>
+            </section>
+          )}
         </>
       )}
     </div>
