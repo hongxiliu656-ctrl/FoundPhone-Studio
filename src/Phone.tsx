@@ -1015,7 +1015,7 @@ function AppContent({
       )}
     </div>
   ) : null;
-  if (app.id === "kakao" && !creator) return <CrisisChat owner={work.phone.owner} />;
+  if (app.id === "kakao" && !creator) return <CrisisChat owner={work.phone.owner} history={items} />;
   if (Skin)
     return (
       <>
