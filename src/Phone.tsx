@@ -352,7 +352,7 @@ function PhoneRuntime({
       <KeyboardContext.Provider value={setKeyboard}>
         <div
           className={`phone-screen wallpaper-${work.phone.wallpaper} ${locked ? "is-locked" : ""} ${app ? "in-app" : ""} ${keyboard ? "keyboard-open" : ""}`}
-          style={safeMedia(work.phone.wallpaper) ? { backgroundImage: `url("${safeMedia(work.phone.wallpaper)}")`, backgroundSize: "cover", backgroundPosition: "center" } : undefined}
+          style={!creator ? { backgroundImage: 'url("/FoundPhone-Studio/photos/01.jpeg")', backgroundSize: "cover", backgroundPosition: "center" } : safeMedia(work.phone.wallpaper) ? { backgroundImage: `url("${safeMedia(work.phone.wallpaper)}")`, backgroundSize: "cover", backgroundPosition: "center" } : undefined}
           data-app={app}
           onDragStart={(e) => e.preventDefault()}
           onPointerDown={(e) => {
@@ -418,8 +418,7 @@ function PhoneRuntime({
             }
           }}
         >
-          <div className="wallpaper-orb orb-one" />
-          <div className="wallpaper-orb orb-two" />
+          {creator && <><div className="wallpaper-orb orb-one" /><div className="wallpaper-orb orb-two" /></>}
           <div className="status-bar">
             <button
               onClick={() =>
