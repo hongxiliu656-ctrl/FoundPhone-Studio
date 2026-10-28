@@ -6,7 +6,7 @@ import type { SkinProps } from "../AppSkins";
 import type { Item } from "../schema";
 import "./direct-messages.css";
 
-export function DirectMessages({p,platform,onExit}:{p:SkinProps;platform:"instagram"|"threads";onExit:()=>void}) {
+export function DirectMessages({p,platform,onExit}:{p:SkinProps;platform:"instagram"|"threads"|"twitter";onExit:()=>void}) {
   const [room,setRoom]=useState<string|null>(null);
   const [search,setSearch]=useState("");
   const [draft,setDraft]=useState("");
@@ -22,7 +22,7 @@ export function DirectMessages({p,platform,onExit}:{p:SkinProps;platform:"instag
   const send=()=>{if(!draft.trim()||!room)return;setSent([...sent,JSON.stringify([room,draft.trim()])]);setDraft("");};
   return <section className={"direct-messages dm-"+platform}>
     <header className="dm-head"><button aria-label="返回" onClick={()=>room?setRoom(null):onExit()}><ArrowLeft size={22}/></button><strong>{room|| (platform==="instagram"?"消息":"收件箱")}</strong><MoreHorizontal size={21}/></header>
-    {room ? <><div className="dm-thread" key={room}><div className="dm-person"><Avatar name={room}/><strong>{room}</strong><small>{platform==="instagram"?"Instagram":"Threads"} · 私信</small></div>
+    {room ? <><div className="dm-thread" key={room}><div className="dm-person"><Avatar name={room}/><strong>{room}</strong><small>{platform==="instagram"?"Instagram":platform==="twitter"?"X":"Threads"} · 私信</small></div>
       {lines.map((m:Item)=><div key={m.id} className={"dm-bubble "+(m.outgoing?"dm-me":"dm-them")}>{m.body}</div>)}
       {mine.map((body,i)=><div key={"mine-"+i} className="dm-bubble dm-me">{body}</div>)}<div ref={end}/></div>
       <form className="dm-compose" onSubmit={e=>{e.preventDefault();send()}}><input aria-label="输入私信" placeholder="发送消息…" value={draft} onChange={e=>setDraft(e.target.value)}/><button aria-label="发送私信" disabled={!draft.trim()}><Send size={20}/></button></form></>
