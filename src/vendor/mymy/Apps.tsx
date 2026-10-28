@@ -322,11 +322,12 @@ export function MymyInstagram(p: SkinProps) {
     [seen, setSeen] = useSkinState<string[]>(p, "mymySeen", []);
   const [sheet, setSheet] = useState<Item | null>(null),
     [selected, setSelected] = useState<Item | null>(null),
+    [viewProfile, setViewProfile] = useState<string | null>(null),
     [story, setStory] = useState(0),
     [draft, setDraft] = useState(""),
     [pop, setPop] = useState("");
   const posts = p.items.filter(
-      (i) => i.folder !== "私信" && i.meta.story !== "true",
+      (i) => i.folder !== "私信" && i.meta.type !== "dm" && i.meta.story !== "true",
     ),
     stories = p.items.filter((i) => i.meta.story === "true"),
     dms = p.items.filter((i) => i.folder === "私信"),
@@ -359,7 +360,7 @@ export function MymyInstagram(p: SkinProps) {
       <header className="igph">
         <Avatar name={i.sender} src={i.avatar} />
         <div className="igpn">
-          <button onClick={() => setTab("个人主页")}>
+          <button onClick={() => {setSelected(null);setViewProfile(i.sender);}}>
             <b>{i.sender}</b>
           </button>
           <small>{i.meta.location || i.time}</small>
@@ -433,19 +434,20 @@ export function MymyInstagram(p: SkinProps) {
       <p className="igt">{i.time}</p>
     </article>
   );
-  if (tab === "私信" && !selected) return <DirectMessages p={p} platform="instagram" onExit={()=>setTab("主页")} />;
+  const celebrityPosts = posts.filter(i => i.sender === "mnijungkook" || i.sender === "thv");
+  if (tab === "私信" && !selected && !viewProfile) return <DirectMessages p={p} platform="instagram" onExit={()=>setTab("主页")} />;
   return (
     <div className="mymy-ui mymy-instagram" data-mymy="instagram">
       <div className="ig">
         <header className="igh">
           <button
             aria-label={selected ? "返回Instagram动态" : "关闭当前App"}
-            onClick={() => (selected ? setSelected(null) : p.onBack())}
+            onClick={() => (selected ? setSelected(null) : viewProfile ? setViewProfile(null) : p.onBack())}
           >
             <ArrowLeft />
           </button>
           <span className="igl2">
-            {selected ? "帖子" : tab === "主页" ? "Instagram" : tab}
+            {selected ? "帖子" : viewProfile || (tab === "主页" ? "Instagram" : tab)}
           </span>
           <button aria-label="打开私信" onClick={() => setTab("私信")}>
             <Send />
@@ -453,7 +455,17 @@ export function MymyInstagram(p: SkinProps) {
         </header>
         <div className="igb">
           {selected && post(selected)}
-          {!selected && tab === "主页" && (
+          {!selected && viewProfile && (
+            <section className="ig-celeb-profile">
+              <div className="ig-celeb-top"><Avatar name={viewProfile} src={celebrityPosts.find(i=>i.sender===viewProfile)?.avatar} /><div className="ig-celeb-stats"><span><b>{celebrityPosts.filter(i=>i.sender===viewProfile).length}</b><small>帖子</small></span><span><b>—</b><small>粉丝</small></span><span><b>—</b><small>关注</small></span></div></div>
+              <div className="ig-celeb-bio"><b>{viewProfile === "thv" ? "V" : "Jung Kook"}</b><small>艺人主页 · 游戏内模拟展示</small></div>
+              <div className="ig-celeb-buttons"><button onClick={()=>setPop("following-"+viewProfile)}>{pop === "following-"+viewProfile ? "已关注" : "关注"}</button><button onClick={()=>{setViewProfile(null);setTab("私信");}}>发消息</button></div>
+              <div className="ig-celeb-gallery"><Grid size={21}/><span>帖子</span></div>
+              <div className="pg2">{celebrityPosts.filter(i=>i.sender===viewProfile).map(i=><button key={i.id} onClick={()=>openPost(i)}><Media item={i}/></button>)}</div>
+              <p className="ig-celeb-disclaimer">游戏内帖子为模拟内容，非实时 Instagram 数据。<a href={"https://www.instagram.com/"+viewProfile+"/"} target="_blank" rel="noreferrer">查看真实账号</a></p>
+            </section>
+          )}
+          {!selected && !viewProfile && tab === "主页" && (
             <>
               <div className="sts">
                 {stories.map((s, n) => (
@@ -475,7 +487,7 @@ export function MymyInstagram(p: SkinProps) {
               {!posts.length && <Blank />}
             </>
           )}
-          {!selected && tab === "个人主页" && (
+          {!selected && !viewProfile && tab === "个人主页" && (
             <>
               <div className="pf">
                 <Avatar name={p.owner || "机主"} />
@@ -523,7 +535,7 @@ export function MymyInstagram(p: SkinProps) {
               {!dms.length && <Blank />}
             </>
           )}
-          {!selected && tab === "搜索" && (
+          {!selected && !viewProfile && tab === "搜索" && (
             <>
               <input
                 className="mymy-search"
@@ -548,6 +560,7 @@ export function MymyInstagram(p: SkinProps) {
               }
               onClick={() => {
                 setSelected(null);
+                setViewProfile(null);
                 setTab(["主页", "搜索", "私信", "个人主页"][n]);
               }}
             >
