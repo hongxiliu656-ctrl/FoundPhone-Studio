@@ -23,7 +23,7 @@ import { RichText } from "../RichText";
 import { Avatar, Media, meta } from "./shared";
 import type { Item, UiValue } from "../schema";
 import "./social-details.css";
-export const socialDetailApps = new Set(["twitter", "weibo"]);
+export const socialDetailApps = new Set(["twitter", "weibo", "instagram"]);
 const count = (n: number) =>
   n >= 10000 ? (n / 10000).toFixed(1).replace(/\.0$/, "") + "w" : String(n);
 export function SocialDetail(p: {
@@ -35,7 +35,8 @@ export function SocialDetail(p: {
   onUi?: (key: string, value: UiValue) => void;
 }) {
   const { item } = p,
-    weibo = p.app === "weibo";
+    weibo = p.app === "weibo",
+    instagram = p.app === "instagram";
   const [liked, setLiked] = useSkinState<boolean>(p, "liked-" + item.id, false),
     [saved, setSaved] = useSkinState<boolean>(p, "saved-" + item.id, false),
     [followed, setFollowed] = useSkinState<boolean>(
@@ -62,7 +63,18 @@ export function SocialDetail(p: {
   };
   const submit = () => {
     if (!draft.trim()) return;
-    setExtra([...extra, (p.owner || "机主") + "：" + draft.trim()]);
+    const playerReply = (p.owner || "机主") + "：" + draft.trim();
+    const next = [...extra, playerReply];
+    if (p.app === "twitter") {
+      const repliesSoFar = extra.filter((reply) => reply.startsWith((p.owner || "机主") + "：")).length;
+      const handle = item.sender ? "@" + item.sender : "@orbit__jk";
+      next.push(repliesSoFar >= 1
+        ? "@screenshot__daily：有人截了这段回复，大家先别急着下结论。"
+        : handle + "：我看到了你的回复，但希望大家别去骚扰任何人。");
+    } else if (instagram) {
+      next.push("@moonlit__archive：看到你的评论了。希望你们都能好好保护自己的生活。");
+    }
+    setExtra(next);
     setDraft("");
     setTarget("");
     setTab("评论");
@@ -107,15 +119,17 @@ export function SocialDetail(p: {
         "app-post-detail " +
         (weibo
           ? "weibo-post-detail"
-          : "x-post-detail" +
-            (p.ui?.["x-dark"] !== false ? " x-reference-dark" : ""))
+          : instagram
+            ? "instagram-post-detail"
+            : "x-post-detail" +
+              (p.ui?.["x-dark"] !== false ? " x-reference-dark" : ""))
       }
     >
       <header className="post-detail-nav">
         <button aria-label="返回帖子列表" onClick={p.back}>
           <ChevronLeft size={27} />
         </button>
-        <strong>{weibo ? "微博正文" : "帖子"}</strong>
+        <strong>{weibo ? "微博正文" : instagram ? "Instagram" : "帖子"}</strong>
         <div>
           {weibo && <Headphones size={23} />}
           <button aria-label="帖子更多选项" onClick={() => setMenu(!menu)}>
@@ -131,10 +145,12 @@ export function SocialDetail(p: {
             <small>
               {weibo
                 ? item.time + " " + meta(item, "location")
-                : meta(item, "handle", item.sender ? "@" + item.sender : "")}
+                : instagram
+                  ? item.time
+                  : meta(item, "handle", item.sender ? "@" + item.sender : "")}
             </small>
           </div>
-          {weibo ? (
+          {weibo || instagram ? (
             <button
               aria-label="关注作者"
               onClick={() => setFollowed(!followed)}
@@ -166,6 +182,8 @@ export function SocialDetail(p: {
               </button>
             ))}
           </div>
+        ) : instagram ? (
+          <div className="x-post-metadata">{item.time} · 模拟互动</div>
         ) : (
           <>
             <div className="x-post-metadata">
@@ -259,7 +277,7 @@ export function SocialDetail(p: {
         <input
           aria-label="回复帖子"
           placeholder={
-            target ? "回复 @" + target : weibo ? "发表你的评论" : "发布你的回复"
+            target ? "回复 @" + target : weibo || instagram ? "发表你的评论" : "发布你的回复"
           }
           value={draft}
           onChange={(e) => setDraft(e.target.value)}
