@@ -659,7 +659,7 @@ export function MymyX(p: SkinProps) {
     [likes, setLikes] = useSkinState<string[]>(p, "mymyXLikes", []),
     [reposts, setReposts] = useSkinState<string[]>(p, "mymyXReposts", []),
     [marks, setMarks] = useSkinState<string[]>(p, "mymyXMarks", []),
-    [query, setQuery] = useState(""),;
+    [query, setQuery] = useState("");
   const isLiked = (id: string) =>
     typeof p.ui?.["liked-" + id] === "boolean"
       ? Boolean(p.ui["liked-" + id])
@@ -686,7 +686,7 @@ export function MymyX(p: SkinProps) {
             <User />
           </button>
         </header>
-        {tab === "私信" ? <div className="kzxtb"><strong>消息</strong><button onClick={()=>setDmUser(null)}>收件箱</button></div> : <div className="kzxtb">
+        {<div className="kzxtb">
           {["为你推荐", "正在关注", "添加 +", "时间"].map((t) => (
             <button
               className={t === tab ? "on" : ""}
