@@ -3,7 +3,7 @@
   "id": "underground-jungkook-romance",
   "title": "未公开关系",
   "description": "虚构互动故事：解锁后可自由探索聊天、社交平台、相册、音乐与备忘录。社交贴文与私信均为虚构模拟内容，不代表现实人物的真实私生活。",
-  "revision": 5,
+  "revision": 6,
   "phone": {
     "owner": "玩家名称",
     "date": "2026-10-28",
@@ -501,6 +501,30 @@
           "type": "dm",
           "unread": "1"
         }
+      },
+      {
+        "id": "ig-crisis-dm-1",
+        "title": "私信请求 · @jklove_041",
+        "body": "你到底是谁？为什么要把他拖进热搜？别再拿他的名字吸引关注。",
+        "kind": "text",
+        "time": "今天 09:42",
+        "sender": "jklove_041",
+        "meta": {
+          "type": "dm",
+          "unread": "1"
+        }
+      },
+      {
+        "id": "ig-crisis-dm-2",
+        "title": "私信请求 · @onlyseven_9",
+        "body": "看到你的账号了。你有没有想过粉丝会有多失望？",
+        "kind": "text",
+        "time": "今天 09:42",
+        "sender": "onlyseven_9",
+        "meta": {
+          "type": "dm",
+          "unread": "1"
+        }
       }
     ],
     "twitter": [
@@ -551,6 +575,30 @@
           "type": "dm",
           "unread": "1"
         }
+      },
+      {
+        "id": "x-crisis-dm-2",
+        "title": "私信请求 · @orbitangry_",
+        "body": "你现在满意了吗？整个时间线都在讨论你。",
+        "kind": "text",
+        "time": "今天 09:42",
+        "sender": "orbitangry_",
+        "meta": {
+          "type": "dm",
+          "unread": "1"
+        }
+      },
+      {
+        "id": "x-crisis-dm-3",
+        "title": "私信请求 · @purpleclouds_",
+        "body": "别把私人关系变成大家必须围观的事情。",
+        "kind": "text",
+        "time": "今天 09:42",
+        "sender": "purpleclouds_",
+        "meta": {
+          "type": "dm",
+          "unread": "1"
+        }
       }
     ],
     "threads": [
@@ -578,6 +626,31 @@
         "comments": [
           "@cloudroom：同意，讨论作品就好。",
           "@slowdays：每个人都应该有私人生活。"
+        ]
+      },
+      {
+        "id": "threads-crisis-dm-1",
+        "title": "私信请求 · @threadnight_",
+        "body": "你凭什么觉得大家都该接受？我已经看到你账号被转出来了。",
+        "kind": "text",
+        "time": "今天 09:44",
+        "sender": "threadnight_",
+        "meta": {
+          "type": "dm",
+          "unread": "1"
+        }
+      },
+      {
+        "id": "threads-crisis-post-3",
+        "title": "热门 · @afterhours_97",
+        "body": "【虚构剧情】有人把当事人的回复截图发出来了。即使你不喜欢这段关系，也不应该去围攻一个普通人。",
+        "kind": "post",
+        "time": "今天 09:46",
+        "sender": "afterhours_97",
+        "likes": 3200,
+        "comments": [
+          "@filmcam_00：有人在私信里说得太难听了。",
+          "@mint__day：讨论可以，骚扰不行。"
         ]
       }
     ],
