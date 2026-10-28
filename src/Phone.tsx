@@ -727,8 +727,10 @@ function PhoneRuntime({
           {banner && !locked && (
             <button
               className="device-banner"
-              onTouchStart={(event) => { bannerSwipeY.current = event.touches[0]?.clientY ?? null; }}
-              onTouchEnd={(event) => { if (bannerSwipeY.current !== null && bannerSwipeY.current - (event.changedTouches[0]?.clientY ?? bannerSwipeY.current) > 45) { setBanner(""); bannerSwiped.current = true; } bannerSwipeY.current = null; }}
+              onPointerDown={(event) => { bannerSwipeY.current = event.clientY; bannerSwiped.current = false; event.currentTarget.setPointerCapture(event.pointerId); }}
+              onPointerUp={(event) => { if (bannerSwipeY.current !== null && bannerSwipeY.current - event.clientY > 35) { bannerSwiped.current = true; setBanner(""); } bannerSwipeY.current = null; }}
+              onPointerCancel={() => { bannerSwipeY.current = null; }}
+              style={{ touchAction: "pan-x", cursor: "grab" }}
               onClick={() => {
                 if (bannerSwiped.current) { bannerSwiped.current = false; return; }
                 setBanner("");
