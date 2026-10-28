@@ -8,6 +8,7 @@ type Line = { who: string; text: string };
 const JK = "田柾国 🐰";
 const people = [JK, "金泰亨", "妈妈", "朋友"];
 const avatars = ["🐰", "🐻", "👩", "💬"];
+const avatarPhoto = (name:string) => name===JK?"/FoundPhone-Studio/avatars/jungkook.svg":name==="金泰亨"?"/FoundPhone-Studio/avatars/taehyung.svg":null;
 const opening: Line[] = [{ who: JK, text: "你看到世趋了吗？" }];
 const sequence: Line[] = [
   {who:"我",text:"我看到了。"},
@@ -78,7 +79,7 @@ export function CrisisChat({owner,history,step,onStep}:{owner:string;history:Ite
           const idx=people.indexOf(name);
           const unread=!readRooms.includes(name) && (name===JK||step>=4);
           return <button className="kakao-row" key={name} onClick={()=>openRoom(name)}>
-            <span className="kakao-avatar">{avatars[idx]}</span>
+            <span className="kakao-avatar">{avatarPhoto(name)?<img src={avatarPhoto(name)!} alt="" style={{width:"100%",height:"100%",objectFit:"cover",borderRadius:"inherit"}}/>:avatars[idx]}</span>
             <span className="kakao-row-info"><strong>{name}</strong><small>{section==="聊天"?lastText(name):name===JK?"🐰":""}</small></span>
             {section==="聊天"&&<span className="kakao-row-side"><small>上午 9:41</small>{unread&&<b>1</b>}</span>}
           </button>;
@@ -90,7 +91,7 @@ export function CrisisChat({owner,history,step,onStep}:{owner:string;history:Ite
       <main className="kakao-messages" ref={scroll}>
         <div className="kakao-date">2026年10月28日 星期三</div>
         {messages.map((m,i)=><div className={"kakao-message "+(m.who==="我"?"outgoing":"incoming")} key={i}>
-          {m.who!=="我"&&<span className="kakao-message-avatar">{avatars[people.indexOf(m.who)]||"👤"}</span>}
+          {m.who!=="我"&&<span className="kakao-message-avatar">{avatarPhoto(m.who)?<img src={avatarPhoto(m.who)!} alt="" style={{width:"100%",height:"100%",objectFit:"cover",borderRadius:"inherit"}}/>:avatars[people.indexOf(m.who)]||"👤"}</span>}
           <div className="kakao-message-content">{m.who!=="我"&&<small>{m.who}</small>}<div className="kakao-message-line"><p>{m.text}</p><time>9:41</time></div></div>
         </div>)}
         {extras.map((text,i)=><div className="kakao-message outgoing" key={"reply-"+i}><div className="kakao-message-content"><div className="kakao-message-line"><p>{text}</p><time>9:41</time></div></div></div>)}
