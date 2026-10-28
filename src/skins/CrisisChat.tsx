@@ -37,6 +37,7 @@ export function CrisisChat({owner,history,step,onStep}:{owner:string;history:Ite
   const [readRooms,setReadRooms]=useState<string[]>([]);
   const scroll=useRef<HTMLDivElement>(null);
   const current=sequence[step];
+  useEffect(()=>{if(!room || room!==JK || !current || current.who==="我")return;const timer=setTimeout(()=>onStep?.(step+1),900);return ()=>clearTimeout(timer);},[room,step,onStep,current]);
   const isJK=room===JK;
   useEffect(()=>{
     if(!isJK || !current || current.who!=="我"){setTyping(false);setTyped("");return;}
@@ -94,7 +95,7 @@ export function CrisisChat({owner,history,step,onStep}:{owner:string;history:Ite
         </div>)}
         {extras.map((text,i)=><div className="kakao-message outgoing" key={"reply-"+i}><div className="kakao-message-content"><div className="kakao-message-line"><p>{text}</p><time>9:41</time></div></div></div>)}
       </main>
-      {isJK&&current?.who!=="我"&&current?<button className="kakao-incoming-next" onClick={()=>onStep?.(step+1)}>收到新消息 · 点击查看</button>:null}
+      
       <form className="kakao-compose" onSubmit={e=>{e.preventDefault();send();}}>
         <button type="button" aria-label="添加附件"><Plus size={23}/></button>
         {isJK&&current?.who==="我"?<div className="kakao-textbox" aria-label="自动输入的消息">{typed}{typing&&<span className="kakao-caret">│</span>}</div>:<input aria-label="输入消息" placeholder="输入消息" value={draft} onChange={e=>setDraft(e.target.value)}/>}
