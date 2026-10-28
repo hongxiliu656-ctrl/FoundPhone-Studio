@@ -49,19 +49,27 @@ export function AudioPlayer({ p, item }: { p: SkinProps; item: Item }) {
     return () => audio.removeEventListener("loadedmetadata", restore);
   }, [item.id]);
   return (
-    <audio
-      ref={element}
-      controls
-      src={safeMedia(item.media)}
-      aria-label={`播放${item.title}`}
-      onTimeUpdate={(e) => {
-        if (e.currentTarget.isConnected) commit(e.currentTarget.currentTime);
-      }}
-      onPause={(e) => {
-        if (e.currentTarget.isConnected)
-          commit(e.currentTarget.currentTime, true);
-      }}
-      onEnded={(e) => commit(e.currentTarget.currentTime, true)}
-    />
+    safeMedia(item.media) ? (
+      <audio
+        ref={element}
+        controls
+        src={safeMedia(item.media)}
+        aria-label={`播放${item.title}`}
+        onTimeUpdate={(e) => {
+          if (e.currentTarget.isConnected) commit(e.currentTarget.currentTime);
+        }}
+        onPause={(e) => {
+          if (e.currentTarget.isConnected)
+            commit(e.currentTarget.currentTime, true);
+        }}
+        onEnded={(e) => commit(e.currentTarget.currentTime, true)}
+      />
+    ) : item.meta?.url ? (
+      <a className="audio-external-source" href={item.meta.url} target="_blank" rel="noreferrer">
+        在 YouTube 打开官方音源 ↗
+      </a>
+    ) : (
+      <p className="audio-source-unavailable">尚未添加可播放的音频文件</p>
+    )
   );
 }
