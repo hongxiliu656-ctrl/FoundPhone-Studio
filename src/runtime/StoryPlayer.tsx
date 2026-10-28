@@ -42,7 +42,13 @@ function StoryPlayer() {
         const w = validateWork(x);
         document.title = w.title === "捡手机" ? "捡手机" : w.title + " · 捡手机";
         setWork(w);
-        const saved = localStorage.getItem("found-phone-player:" + w.id) || "";
+        const storageKey = "found-phone-player:" + w.id;
+        const resetName = new URLSearchParams(location.search).get("resetName") === "1";
+        if (resetName) {
+          localStorage.removeItem(storageKey);
+          window.history.replaceState({}, "", location.pathname + location.hash);
+        }
+        const saved = resetName ? "" : localStorage.getItem(storageKey) || "";
         setPlayerName(saved);
         setNameInput(saved);
       })
