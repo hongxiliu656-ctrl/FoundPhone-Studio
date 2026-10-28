@@ -4,6 +4,14 @@ import { X } from "lucide-react";
 import { AppArtwork } from "./AppArtwork";
 import type { Work } from "./schema";
 export function notificationContent(text: string, apps: Work["apps"]) {
+  const parts = text.split(" · ");
+  if (parts.length > 1) {
+    const appName = parts[0];
+    const detail = parts.slice(1).join(" · ");
+    const sep = detail.search(/[:：]/);
+    const map: Record<string,string> = {KakaoTalk:"kakao",X:"twitter",Instagram:"instagram",Threads:"threads"};
+    return {title:sep>0?detail.slice(0,sep):appName,body:sep>0?detail.slice(sep+1):detail,appId:map[appName]||"messages"};
+  }
   const separator = text.search(/[:：]/);
   const sender = separator > 0 ? text.slice(0, separator) : "信息";
   const app = apps.find((a) => a.name === sender);
