@@ -142,6 +142,8 @@ function PhoneRuntime({
   const [recent, setRecent] = useState<string[]>([]);
   const appSnapshots = useRef(new Map<string, HTMLElement>());
   const [banner, setBanner] = useState("");
+  const [crisisStep, setCrisisStep] = useState(0);
+  const [fanWave, setFanWave] = useState(0);
   const noticesSeen = useRef(0);
   const [contextApp, setContextApp] = useState("");
   const [deviceScale, setDeviceScale] = useState(0.84);
@@ -305,13 +307,36 @@ function PhoneRuntime({
     }
     noticesSeen.current = count;
   }, [s.notifications.length, locked, work.phone.notifications]);
-  const dismissNotice = (index: number) =>
+  useEffect(() => {
+    if (creator || locked || crisisStep < 4 || fanWave >= 14) return;
+    const timer = setTimeout(() => setFanWave(n => n + 1), 8500);
+    return () => clearTimeout(timer);
+  }, [creator, locked, crisisStep, fanWave]);
+  const crisisNotices = [
+    "KakaoTalk · 金泰亨：你还好吗？我看到网上的消息了。",
+    "KakaoTalk · 妈妈：刚刚有人给我发了网上的东西，你没事吧？",
+    "KakaoTalk · 朋友：你上热搜了！先把陌生人私信关掉好不好？",
+  ];
+  const fanApps = ["X", "Instagram", "Threads"];
+  const fanTexts = ["你到底是谁？", "你真的觉得这件事不会伤害到粉丝吗？", "有人已经把你账号转出来了。", "你为什么不回应网上的传闻？", "别再拿他的名字吸引关注。", "你们到底打算怎么解释？"];
+  const dynamicNotices = [...(crisisStep >= 4 ? crisisNotices : []), ...Array.from({length: fanWave}, (_,i) => `${fanApps[i % 3]} · @${["onlyseven_9","orbitangry_","threadnight_","jkcloud_97","screenshot__daily","nightarchive_"][i % 6]}：${fanTexts[i % fanTexts.length]}`)];
+  const allNotices = [...s.notifications, ...dynamicNotices];
+  useEffect(() => {
+    if (!dynamicNotices.length || locked) return;
+    const latest = dynamicNotices[dynamicNotices.length - 1];
+    setBanner(latest);
+    const timer = setTimeout(() => setBanner(""), 4600);
+    return () => clearTimeout(timer);
+  }, [crisisStep >= 4, fanWave, locked]);
+  const dismissNotice = (index: number) => {
+    if (index >= s.notifications.length) return;
     update({
       ...runtimeRef.current,
       notifications: runtimeRef.current.notifications.filter(
         (_, i) => i !== index,
       ),
     });
+  };
   if (!ready) return <div className="phone-loading">正在恢复进度…</div>;
   return (
     <div
@@ -425,7 +450,7 @@ function PhoneRuntime({
                     : work
                 }
                 time={displayTime}
-                notices={s.notifications}
+                notices={allNotices}
                 onDismiss={dismissNotice}
                 pinOpen={pinOpen}
                 setPinOpen={setPinOpen}
@@ -478,6 +503,9 @@ function PhoneRuntime({
                     );
                   }}
                   work={work}
+                  crisisStep={crisisStep}
+                  onCrisisStep={setCrisisStep}
+                  fanWave={fanWave}
                 />
               </AppWindow>
             ) : (
@@ -554,9 +582,9 @@ function PhoneRuntime({
               {panel === "notification" ? (
                 <>
                   <h2>通知中心</h2>
-                  {work.phone.notifications && s.notifications.length ? (
+                  {work.phone.notifications && allNotices.length ? (
                     <SystemNotifications
-                      notices={s.notifications}
+                      notices={allNotices}
                       apps={work.apps}
                       onOpen={() => {
                         setPanel("");
@@ -876,6 +904,9 @@ function AppContent({
   onSettings,
   onUi,
   work,
+  crisisStep = 0,
+  onCrisisStep,
+  fanWave = 0,
 }: {
   app: AppPlugin;
   name: string;
@@ -889,6 +920,9 @@ function AppContent({
   onSettings?: () => void;
   onUi?: (key: string, value: UiValue) => void;
   work: Work;
+  crisisStep?: number;
+  onCrisisStep?: (step: number) => void;
+  fanWave?: number;
 }) {
   const [detail, setDetail] = useState<Item | null>(null);
   const [thread, setThread] = useState("");
@@ -1015,7 +1049,7 @@ function AppContent({
       )}
     </div>
   ) : null;
-  if (app.id === "kakao" && !creator) return <CrisisChat owner={work.phone.owner} history={items} />;
+  if (app.id === "kakao" && !creator) return <CrisisChat owner={work.phone.owner} history={items} step={crisisStep} onStep={onCrisisStep} />;
   if (Skin)
     return (
       <>
