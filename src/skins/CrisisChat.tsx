@@ -72,26 +72,33 @@ export function CrisisChat({owner,history,step,onStep}:{owner:string;history:Ite
   const [typing,setTyping]=useState(false);
   const [replies,setReplies]=useState<Record<string,string[]>>(loadReplies);
   const [readRooms,setReadRooms]=useState<string[]>([]);
+  const [npcSteps,setNpcSteps]=useState<Record<string,number>>({});
   const scroll=useRef<HTMLDivElement>(null);
-  const current=sequence[step];
-  useEffect(()=>{if(!room || room!==JK || !current || current.who==="我")return;const timer=setTimeout(()=>onStep?.(step+1),900);return ()=>clearTimeout(timer);},[room,step,onStep,current]);
+  const npcScripts:Record<string,Line[]>={
+    "金泰亨":[{who:"我",text:"泰亨，你现在方便说话吗？"},{who:"金泰亨",text:"方便。你是不是看到那些帖子了？"},{who:"我",text:"嗯，真的有点害怕。"},{who:"金泰亨",text:"先别自己看，我会帮你留意有没有泄露地址。"},{who:"我",text:"柾国知道吗？"},{who:"金泰亨",text:"知道。他刚结束工作就联系公司了。"},{who:"我",text:"谢谢你替我保密。"},{who:"金泰亨",text:"不用谢。你们的事，还是让你们自己决定。"}],
+    "妈妈":[{who:"我",text:"妈妈，你看到网上的消息了吗？"},{who:"妈妈",text:"看到了，我更担心你有没有好好吃饭。"},{who:"我",text:"我没什么胃口。"},{who:"妈妈",text:"先吃一点热的，其他事我们慢慢说。"},{who:"我",text:"我怕你也被骚扰。"},{who:"妈妈",text:"我会小心。你不需要为了保护我一个人硬撑。"},{who:"我",text:"我还没想好该怎么办。"},{who:"妈妈",text:"那就写下来，想清楚再做决定。"}],
+    "朋友":[{who:"我",text:"你在吗？"},{who:"朋友",text:"在！我正想给你打电话。"},{who:"我",text:"有人一直给我发私信。"},{who:"朋友",text:"别回，我帮你整理举报截图。"},{who:"我",text:"你会不会觉得我很傻？"},{who:"朋友",text:"不会，我只想你安全一点。"},{who:"我",text:"我和他还有很多话没说完。"},{who:"朋友",text:"那就继续聊。最后的选择留给你自己。"}]
+  };
+  const npcCurrent=room && room!==JK ? npcScripts[room]?.[npcSteps[room]||0] : undefined;
+  const current=room===JK?sequence[step]:npcCurrent;
+  useEffect(()=>{if(!room || !current || current.who==="我")return;const timer=setTimeout(()=>{if(room===JK)onStep?.(step+1);else setNpcSteps(v=>({...v,[room]:(v[room]||0)+1}));},900);return ()=>clearTimeout(timer);},[room,step,onStep,current]);
   const isJK=room===JK;
   useEffect(()=>{
-    if(!isJK || !current || current.who!=="我"){setTyping(false);setTyped("");return;}
+    if(!room || !current || current.who!=="我"){setTyping(false);setTyped("");return;}
     setTyped("");setTyping(true);
     let n=0;
     const timer=setInterval(()=>{n++;setTyped(current.text.slice(0,n));if(n>=current.text.length){clearInterval(timer);setTyping(false);}},75);
     return ()=>clearInterval(timer);
-  },[step,isJK]);
+  },[step,isJK,room,npcSteps]);
   const previous=history.filter(i=>i.title===room && !i.id.startsWith("crisis-")).slice(-18).map(i=>({who:i.sender===owner?"我":room||"",text:i.body}));
-  const messages:Line[]=isJK?[...previous,...opening,...sequence.slice(0,step)]:[...previous,...(step>=4?incoming[room||""]||[]:[])];
+  const messages:Line[]=isJK?[...previous,...opening,...sequence.slice(0,step)]:[...previous,...(npcScripts[room||""]||[]).slice(0,npcSteps[room||""]||0)];
   const extras=room?(replies[room]||[]):[];
   useEffect(()=>{if(scroll.current)scroll.current.scrollTop=scroll.current.scrollHeight;},[room,step,typed,replies,history.length]);
   const send=()=>{
     if(!room)return;
-    if(isJK && current?.who==="我"){
+    if(current?.who==="我"){
       if(typed!==current.text)return;
-      onStep?.(step+1);
+      if(isJK)onStep?.(step+1);else setNpcSteps(v=>({...v,[room]:(v[room]||0)+1}));
       setTyped("");
       return;
     }
@@ -103,7 +110,7 @@ export function CrisisChat({owner,history,step,onStep}:{owner:string;history:Ite
   const lastText=(name:string)=>{
     if(replies[name]?.length)return replies[name].at(-1)||"";
     if(name===JK)return sequence.slice(0,step).at(-1)?.text||opening[0].text;
-    return step>=4?incoming[name]?.at(-1)?.text||"":"";
+    return npcScripts[name]?.slice(0,npcSteps[name]||0).at(-1)?.text||incoming[name]?.[0]?.text||"";
   };
   return <div className={"crisis-chat kakao-real "+(room?"kakao-in-room":"kakao-on-list")}>
     {!room ? <>
@@ -135,11 +142,11 @@ export function CrisisChat({owner,history,step,onStep}:{owner:string;history:Ite
       
       <form className="kakao-compose" onSubmit={e=>{e.preventDefault();send();}}>
         <button type="button" aria-label="添加附件"><Plus size={23}/></button>
-        {isJK&&current?.who==="我"?<div className="kakao-textbox" aria-label="自动输入的消息">{typed}{typing&&<span className="kakao-caret">│</span>}</div>:<input aria-label="输入消息" placeholder="输入消息" value={draft} onChange={e=>setDraft(e.target.value)}/>}
+        {current?.who==="我"?<div className="kakao-textbox" aria-label="自动输入的消息">{typed}{typing&&<span className="kakao-caret">│</span>}</div>:<input aria-label="输入消息" placeholder="输入消息" value={draft} onChange={e=>setDraft(e.target.value)}/>}
         <button type="button" aria-label="表情"><Smile size={22}/></button>
-        <button className="kakao-send" aria-label="发送消息" disabled={isJK?current?.who!=="我"||typed!==current.text:!draft.trim()}><Send size={19}/></button>
+        <button className="kakao-send" aria-label="发送消息" disabled={current?current.who!=="我"||typed!==current.text:!draft.trim()}><Send size={19}/></button>
       </form>
-      {isJK&&current?.who==="我"&&typing&&<div className="kakao-typing-hint">正在输入… 完成后请亲自点击发送</div>}
+      {current?.who==="我"&&typing&&<div className="kakao-typing-hint">正在输入… 完成后请亲自点击发送</div>}
     </>}
   </div>;
 }
