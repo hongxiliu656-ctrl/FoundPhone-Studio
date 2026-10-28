@@ -146,6 +146,8 @@ function PhoneRuntime({
   const [recent, setRecent] = useState<string[]>([]);
   const appSnapshots = useRef(new Map<string, HTMLElement>());
   const [banner, setBanner] = useState("");
+  const bannerSwipeY = useRef<number | null>(null);
+  const bannerSwiped = useRef(false);
   const [crisisStep, setCrisisStep] = useState(0);
   const [fanWave, setFanWave] = useState(0);
   const noticesSeen = useRef(0);
@@ -725,7 +727,10 @@ function PhoneRuntime({
           {banner && !locked && (
             <button
               className="device-banner"
+              onTouchStart={(event) => { bannerSwipeY.current = event.touches[0]?.clientY ?? null; }}
+              onTouchEnd={(event) => { if (bannerSwipeY.current !== null && bannerSwipeY.current - (event.changedTouches[0]?.clientY ?? bannerSwipeY.current) > 45) { setBanner(""); bannerSwiped.current = true; } bannerSwipeY.current = null; }}
               onClick={() => {
+                if (bannerSwiped.current) { bannerSwiped.current = false; return; }
                 setBanner("");
                 setPanel("notification");
               }}
