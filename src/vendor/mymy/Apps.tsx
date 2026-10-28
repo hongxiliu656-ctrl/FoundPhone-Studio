@@ -679,7 +679,7 @@ export function MymyX(p: SkinProps) {
               {t}
             </button>
           ))}
-        </div>
+        </div>}
         {tab === "搜索" && (
           <input
             className="mymy-search"
