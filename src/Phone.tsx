@@ -150,6 +150,13 @@ function PhoneRuntime({
   const bannerSwipeY = useRef<number | null>(null);
   const bannerSwiped = useRef(false);
   const [crisisStep, setCrisisStep] = useState(0);
+  const [kktUnread, setKktUnread] = useState(() => {
+    try { const read = JSON.parse(localStorage.getItem("foundphone-kkt-read-rooms") || "[]") as string[];
+      const steps = JSON.parse(localStorage.getItem("foundphone-kkt-read-steps") || "{}") as Record<string,number>;
+      const progress = JSON.parse(localStorage.getItem("foundphone-kkt-jk-step") || "0") as number;
+      return Number(!read.includes("田柾国 🐰") || progress > (steps["田柾国 🐰"] ?? 0)) + (progress >= 4 ? ["金泰亨","妈妈","朋友"].filter(n=>!read.includes(n)).length : 0);
+    } catch { return 1; }
+  });
   const [fanWave, setFanWave] = useState(0);
   const noticesSeen = useRef(0);
   const [contextApp, setContextApp] = useState("");
@@ -521,6 +528,7 @@ function PhoneRuntime({
                   crisisStep={crisisStep}
                   fanWave={fanWave}
                   onCrisisStep={setCrisisStep}
+                  onKktUnreadChange={setKktUnread}
                 />
               </AppWindow>
             ) : (
@@ -548,7 +556,7 @@ function PhoneRuntime({
                     custom={a.icon}
                     date={s.date || work.phone.date}
                     time={s.time}
-                    badge={creator ? 0 : allNotices.filter(n => notificationContent(n, work.apps).appId === a.id).length}
+                    badge={creator ? 0 : a.id === "kakao" ? kktUnread : allNotices.filter(n => notificationContent(n, work.apps).appId === a.id).length}
                   />
                 )}
                 clearApp={(id) =>
@@ -950,6 +958,7 @@ function AppContent({
   crisisStep = 0,
   fanWave = 0,
   onCrisisStep,
+  onKktUnreadChange,
 }: {
   app: AppPlugin;
   name: string;
@@ -966,6 +975,7 @@ function AppContent({
   crisisStep?: number;
   fanWave?: number;
   onCrisisStep?: (step: number) => void;
+  onKktUnreadChange?: (count: number) => void;
 }) {
   const [detail, setDetail] = useState<Item | null>(null);
   const [thread, setThread] = useState("");
@@ -1092,7 +1102,7 @@ function AppContent({
       )}
     </div>
   ) : null;
-  if (app.id === "kakao" && !creator) return <CrisisChat owner={work.phone.owner} history={items} step={crisisStep} onStep={onCrisisStep} />;
+  if (app.id === "kakao" && !creator) return <CrisisChat owner={work.phone.owner} history={items} step={crisisStep} onStep={onCrisisStep} onUnreadChange={onKktUnreadChange} />;
   if (Skin)
     return (
       <>
