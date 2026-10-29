@@ -8,6 +8,7 @@ function Player() {
   const [work, setWork] = useState<Work | null>(null);
   const [error, setError] = useState("");
   useEffect(() => {
+    startGameMusic(); // Attempt autoplay on initial lock screen; browser may require first gesture.
     const start = () => startGameMusic();
     document.addEventListener("pointerdown", start);
     document.addEventListener("keydown", start);
