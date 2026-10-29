@@ -82,6 +82,16 @@ try {
         .length - 1;
   }
   const raw = JSON.parse(json);
+  if (mode === "build") {
+    try {
+      const generated = JSON.parse(await readFile("public/ig/generated-posts.json", "utf8"));
+      raw.data ??= {};
+      raw.data.instagram ??= [];
+      raw.data.instagram.push(...generated);
+    } catch (error) {
+      if (error.code !== "ENOENT") throw error;
+    }
+  }
   const { compileStory, storySchema } = await server.ssrLoadModule(
     "/src/story-engine/compiler.ts",
   );
