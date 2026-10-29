@@ -209,7 +209,7 @@ function PhoneRuntime({
   const choiceKey = s.choices.map((c) => `${c.target}:${c.label}`).join("|");
   // Ending posts are gated by an explicit choice made after reading the final note.
   const [confirmedStayEnding, setConfirmedStayEnding] = useState(false);
-  const stayEnding = confirmedStayEnding && s.endings.some(e => e.startsWith("继续："));
+  const stayEnding = confirmedStayEnding && finalNoteOpened && s.endings.some(e => e.startsWith("继续："));
   const [dismissedChoiceKey, setDismissedChoiceKey] = useState("");
   const [finalNoteOpened, setFinalNoteOpened] = useState(false);
   const [endingNarrationDismissed, setEndingNarrationDismissed] = useState(false);
@@ -641,7 +641,7 @@ function PhoneRuntime({
               {s.choices.map((c) => (
                 <button
                   key={c.target}
-                  onClick={() => { const next = choose(work, s, c.target); setConfirmedStayEnding(next.endings.some(e => e.startsWith("继续："))); update(next); }}
+                  onClick={() => { const next = choose(work, s, c.target); setConfirmedStayEnding(c.label.includes("继续") && next.endings.some(e => e.startsWith("继续："))); setEndingNarrationDismissed(false); update(next); }}
                 >
                   {c.label}
                   <ArrowUp size={15} />
