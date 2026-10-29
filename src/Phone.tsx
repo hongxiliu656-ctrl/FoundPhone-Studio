@@ -209,9 +209,9 @@ function PhoneRuntime({
   const choiceKey = s.choices.map((c) => `${c.target}:${c.label}`).join("|");
   // Ending posts are gated by an explicit choice made after reading the final note.
   const [confirmedStayEnding, setConfirmedStayEnding] = useState(false);
-  const stayEnding = confirmedStayEnding && finalNoteOpened && s.endings.some(e => e.startsWith("继续："));
   const [dismissedChoiceKey, setDismissedChoiceKey] = useState("");
   const [finalNoteOpened, setFinalNoteOpened] = useState(false);
+  const stayEnding = confirmedStayEnding && finalNoteOpened && s.endings.some(e => e.startsWith("继续："));
   const [endingNarrationDismissed, setEndingNarrationDismissed] = useState(false);
   const [endingPostVisited, setEndingPostVisited] = useState(false);
   const endingNotified = useRef(false);
