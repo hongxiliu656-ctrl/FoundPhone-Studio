@@ -440,9 +440,10 @@ export function MymyInstagram(p: SkinProps) {
       posts.filter(i => i.sender === name && i.kind === "image" && !!i.media)
         .sort((a, b) => Number(b.id.startsWith("ig-upload-")) - Number(a.id.startsWith("ig-upload-")))
     );
-    const mixed: Item[] = [];
+    const ending = posts.find(i => i.id === "jk-ending-with-you");
+    const mixed: Item[] = ending ? [ending] : [];
     for (let n = 0; n < Math.max(...byArtist.map(group => group.length)); n++) {
-      for (const group of byArtist) if (group[n]) mixed.push(group[n]);
+      for (const group of byArtist) if (group[n] && group[n].id !== "jk-ending-with-you") mixed.push(group[n]);
     }
     return mixed;
   })();
