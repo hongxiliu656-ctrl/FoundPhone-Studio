@@ -536,16 +536,16 @@
         }
       },
       {
-        "id": "music-butterfly",
-        "title": "Butterfly",
-        "body": "BTS · 官方音乐入口。",
+        "id": "music-christmas-song-jungkook",
+        "title": "The Christmas Song (cover)",
+        "body": "Jung Kook · The Christmas Song (cover) · 音乐搜索入口。",
         "kind": "audio",
         "time": "歌单",
-        "sender": "BTS",
+        "sender": "Jung Kook",
         "meta": {
-          "artist": "BTS",
+          "artist": "Jung Kook",
           "status": "ready",
-          "url": "https://www.youtube.com/results?search_query=BTS+Butterfly+official"
+          "url": "https://www.youtube.com/results?search_query=Jung+Kook+The+Christmas+Song+cover"
         }
       }
     ],
