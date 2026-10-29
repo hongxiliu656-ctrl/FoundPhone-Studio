@@ -34,6 +34,10 @@ export function selectGameMusic(id:string) {
  if(el){if(!el.src.endsWith(track.src)){el.src=track.src;el.load()}void el.play().catch(()=>notify())}
  notify();
 }
+export function skipGameMusic(direction: number) {
+ const index = tracks.findIndex(track => track.id === current);
+ selectGameMusic(tracks[(index + direction + tracks.length) % tracks.length].id);
+}
 export function toggleGameMusic() {
  const el=getAudio();
  if(!el)return;
@@ -45,4 +49,5 @@ const getSnapshot=()=>{
  if(snapshot.id!==current||snapshot.playing!==playing)snapshot={id:current,playing};
  return snapshot;
 };
+export function getGameMusicTitle(id: string) { return tracks.find(track => track.id === id)?.title ?? tracks[0].title; }
 export function useGameMusic(){return useSyncExternalStore(subscribe,getSnapshot,getSnapshot)}
