@@ -25,6 +25,10 @@ jobs:
           unzip -o -j 'public/模拟器照片.zip' '模拟器照片/*.jpeg' -d public/photos
           test -f public/photos/01.jpeg
           test -f public/photos/16.jpeg
+      - name: Convert Instagram photo archives
+        run: |
+          python -m pip install --quiet Pillow pillow-heif
+          python scripts/extract_ig.py
       - run: npm ci
       - run: npm run typecheck
       - run: npm run lint
