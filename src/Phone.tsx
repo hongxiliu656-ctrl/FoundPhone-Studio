@@ -271,7 +271,21 @@ function PhoneRuntime({
     return () => clearInterval(interval);
   }, [creator, ready, work.id, work.updatedAt]);
   const event = (event: string, target: string) => {
-    if (event === "read" && target === "note-last-message") { setFinalNoteOpened(true); setDismissedChoiceKey(""); }
+    if (event === "read" && target === "note-last-message") {
+      setFinalNoteOpened(true);
+      setDismissedChoiceKey("");
+      setEndingNarrationDismissed(false);
+      // Old Safari/WeChat saves can already contain an ending. Re-arm the
+      // decision when the final note is reopened so the choices stay playable.
+      if (!creator && runtimeRef.current.endings.length > 0) {
+        const fresh = dispatch(work, initialRuntime(work), "start");
+        update(dispatch(work, fresh, event, target));
+        setConfirmedStayEnding(false);
+        setEndingPostVisited(false);
+        endingNotified.current = false;
+        return;
+      }
+    }
     if (!creator) update(dispatch(work, runtimeRef.current, event, target));
   };
   const captureApp = () => {
