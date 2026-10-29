@@ -1,4 +1,5 @@
 import { AudioPlayer, useTrack } from "../audio";
+import { useGameMusic, selectGameMusic, toggleGameMusic } from "../gameMusic";
 import { useSkinState } from "../skinState";
 import {
   Bookmark,
@@ -39,6 +40,8 @@ function TrackPlayer({
   p: Props;
   onNext: () => void;
 }) {
+  const music = useGameMusic();
+  const isGameTrack = item.id === "music-still-with-you" || item.id === "music-christmas-song-jungkook";
   return (
     <div className="track-player">
       <button onClick={() => p.onItem(item)}>
@@ -48,7 +51,9 @@ function TrackPlayer({
           <small>{item.sender}</small>
         </span>
       </button>
-      {item.kind === "audio" && safeMedia(item.media) ? (
+      {isGameTrack ? (
+        <button aria-label={music.playing ? "暂停" : "播放"} onClick={toggleGameMusic}>{music.playing ? "暂停 ❚❚" : "播放 ▶"}</button>
+      ) : item.kind === "audio" && safeMedia(item.media) ? (
         <AudioPlayer p={p} item={item} />
       ) : (
         <button onClick={() => p.onItem(item)}>查看</button>
@@ -63,6 +68,8 @@ export function SpotifySkin(p: Props) {
   const { tab, setTab, q, setQ, items } = useContent(p, "首页");
   const [playlist, setPlaylist] = useState(""),
     [track, setTrack] = useTrack(p, items);
+  const music = useGameMusic();
+  const activeTrack = items.find(i=>i.id===music.id) ?? track;
   const list = playlist
     ? items.filter((i) => (i.folder || "我的音乐") === playlist)
     : items;
@@ -108,6 +115,7 @@ export function SpotifySkin(p: Props) {
               key={i.id}
               onClick={() => {
                 setTrack(i);
+                selectGameMusic(i.id);
               }}
             >
               <span>{n + 1}</span>
@@ -123,16 +131,12 @@ export function SpotifySkin(p: Props) {
         </div>
         <Empty items={list} />
       </div>
-      {track && (
+      {activeTrack && (
         <TrackPlayer
-          item={track}
+          item={activeTrack}
           p={p}
           onNext={() =>
-            setTrack(
-              items[
-                (items.findIndex((i) => i.id === track.id) + 1) % items.length
-              ],
-            )
+            (setTrack(items[(items.findIndex((i) => i.id === activeTrack.id) + 1) % items.length]),selectGameMusic(items[(items.findIndex((i) => i.id === activeTrack.id) + 1) % items.length].id))
           }
         />
       )}
