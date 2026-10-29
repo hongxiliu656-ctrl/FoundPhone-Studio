@@ -435,7 +435,7 @@ export function MymyInstagram(p: SkinProps) {
       <p className="igt">{i.time}</p>
     </article>
   );
-  const celebrityPosts = ["mnijungkook", "thv"].flatMap(name => posts.filter(i => i.sender === name && i.kind === "image" && !!i.media).slice(0, 1));
+  const celebrityPosts = ["mnijungkook", "thv"].flatMap(name => posts.filter(i => i.sender === name && i.kind === "image" && !!i.media).sort((a,b) => Number(b.id.startsWith("ig-upload-")) - Number(a.id.startsWith("ig-upload-"))));
   if (tab === "私信" && !selected && !viewProfile) return <DirectMessages p={p} platform="instagram" onExit={()=>setTab("主页")} />;
   return (
     <div className="mymy-ui mymy-instagram" data-mymy="instagram">
@@ -484,7 +484,7 @@ export function MymyInstagram(p: SkinProps) {
                   </button>
                 ))}
               </div>
-              {celebrityPosts.map(post)}
+              {celebrityPosts.filter(i => i.id.startsWith("ig-upload-")).length ? celebrityPosts.filter(i => i.id.startsWith("ig-upload-")).slice(0, 12).map(post) : celebrityPosts.map(post)}
               {!celebrityPosts.length && <Blank />}
             </>
           )}
