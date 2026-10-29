@@ -85,9 +85,9 @@ try {
   if (mode === "build") {
     try {
       const generated = JSON.parse(await readFile("public/ig/generated-posts.json", "utf8"));
-      raw.data ??= {};
-      raw.data.instagram ??= [];
-      raw.data.instagram.push(...generated);
+      raw.content ??= {};
+      raw.content.instagram ??= [];
+      raw.content.instagram.push(...generated);
     } catch (error) {
       if (error.code !== "ENOENT") throw error;
     }
