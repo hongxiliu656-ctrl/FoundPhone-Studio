@@ -63,6 +63,8 @@ const incoming: Record<string,Line[]> = {
   "朋友":[{who:"朋友",text:"你上热搜了！先把陌生人私信关掉好不好？"},{who:"朋友",text:"我可以过去陪你，不用自己扛。"}]
 };
 function loadReplies(): Record<string,string[]> { try { return JSON.parse(localStorage.getItem("foundphone-kkt-replies") || "{}") as Record<string,string[]>; } catch { return {}; } }
+function loadSaved<T>(key:string, fallback:T):T { try { const raw=localStorage.getItem(key); return raw ? JSON.parse(raw) as T : fallback; } catch { return fallback; } }
+function saveSaved(key:string,value:unknown) { try { localStorage.setItem(key,JSON.stringify(value)); } catch { /* private mode or full storage */ } }
 export function CrisisChat({owner,history,step,onStep}:{owner:string;history:Item[];step:number;onStep?:(n:number)=>void}) {
   const [section,setSection]=useState("聊天");
   const [room,setRoom]=useState<string|null>(null);
@@ -71,8 +73,14 @@ export function CrisisChat({owner,history,step,onStep}:{owner:string;history:Ite
   const [typed,setTyped]=useState("");
   const [typing,setTyping]=useState(false);
   const [replies,setReplies]=useState<Record<string,string[]>>(loadReplies);
-  const [readRooms,setReadRooms]=useState<string[]>([]);
-  const [npcSteps,setNpcSteps]=useState<Record<string,number>>({});
+  const [readRooms,setReadRooms]=useState<string[]>(()=>loadSaved<string[]>("foundphone-kkt-read-rooms",[]));
+  const [npcSteps,setNpcSteps]=useState<Record<string,number>>(()=>loadSaved<Record<string,number>>("foundphone-kkt-npc-steps",{}));
+  const [savedJkStep,setSavedJkStep]=useState(()=>loadSaved<number>("foundphone-kkt-jk-step",0));
+  const jkStep=Math.max(step,savedJkStep);
+  useEffect(()=>{saveSaved("foundphone-kkt-read-rooms",readRooms);},[readRooms]);
+  useEffect(()=>{saveSaved("foundphone-kkt-npc-steps",npcSteps);},[npcSteps]);
+  useEffect(()=>{if(jkStep>savedJkStep)setSavedJkStep(jkStep);saveSaved("foundphone-kkt-jk-step",jkStep);},[jkStep,savedJkStep]);
+  const advanceJk=()=>{const next=jkStep+1;setSavedJkStep(next);onStep?.(next);};
   const scroll=useRef<HTMLDivElement>(null);
   const npcScripts:Record<string,Line[]>={
     "金泰亨":[{who:"我",text:"泰亨，你现在方便说话吗？"},{who:"金泰亨",text:"方便。你是不是看到那些帖子了？"},{who:"我",text:"嗯，真的有点害怕。"},{who:"金泰亨",text:"先别自己看，我会帮你留意有没有泄露地址。"},{who:"我",text:"柾国知道吗？"},{who:"金泰亨",text:"知道。他刚结束工作就联系公司了。"},{who:"我",text:"谢谢你替我保密。"},{who:"金泰亨",text:"不用谢。你们的事，还是让你们自己决定。"}],
@@ -80,8 +88,8 @@ export function CrisisChat({owner,history,step,onStep}:{owner:string;history:Ite
     "朋友":[{who:"我",text:"你在吗？"},{who:"朋友",text:"在！我正想给你打电话。"},{who:"我",text:"有人一直给我发私信。"},{who:"朋友",text:"别回，我帮你整理举报截图。"},{who:"我",text:"你会不会觉得我很傻？"},{who:"朋友",text:"不会，我只想你安全一点。"},{who:"我",text:"我和他还有很多话没说完。"},{who:"朋友",text:"那就继续聊。最后的选择留给你自己。"}]
   };
   const npcCurrent=room && room!==JK ? npcScripts[room]?.[npcSteps[room]||0] : undefined;
-  const current=room===JK?sequence[step]:npcCurrent;
-  useEffect(()=>{if(!room || !current || current.who==="我")return;const timer=setTimeout(()=>{if(room===JK)onStep?.(step+1);else setNpcSteps(v=>({...v,[room]:(v[room]||0)+1}));},900);return ()=>clearTimeout(timer);},[room,step,onStep,current]);
+  const current=room===JK?sequence[jkStep]:npcCurrent;
+  useEffect(()=>{if(!room || !current || current.who==="我")return;const timer=setTimeout(()=>{if(room===JK)advanceJk();else setNpcSteps(v=>({...v,[room]:(v[room]||0)+1}));},900);return ()=>clearTimeout(timer);},[room,jkStep,onStep,current]);
   const isJK=room===JK;
   useEffect(()=>{
     if(!room || !current || current.who!=="我"){setTyping(false);setTyped("");return;}
@@ -89,16 +97,16 @@ export function CrisisChat({owner,history,step,onStep}:{owner:string;history:Ite
     let n=0;
     const timer=setInterval(()=>{n++;setTyped(current.text.slice(0,n));if(n>=current.text.length){clearInterval(timer);setTyping(false);}},75);
     return ()=>clearInterval(timer);
-  },[step,isJK,room,npcSteps]);
+  },[jkStep,isJK,room,npcSteps]);
   const previous=history.filter(i=>i.title===room && !i.id.startsWith("crisis-")).slice(-18).map(i=>({who:i.sender===owner?"我":room||"",text:i.body}));
-  const messages:Line[]=isJK?[...previous,...opening,...sequence.slice(0,step)]:[...previous,...(npcScripts[room||""]||[]).slice(0,npcSteps[room||""]||0)];
+  const messages:Line[]=isJK?[...previous,...opening,...sequence.slice(0,jkStep)]:[...previous,...(npcScripts[room||""]||[]).slice(0,npcSteps[room||""]||0)];
   const extras=room?(replies[room]||[]):[];
-  useEffect(()=>{if(scroll.current)scroll.current.scrollTop=scroll.current.scrollHeight;},[room,step,typed,replies,history.length]);
+  useEffect(()=>{if(scroll.current)scroll.current.scrollTop=scroll.current.scrollHeight;},[room,jkStep,typed,replies,history.length]);
   const send=()=>{
     if(!room)return;
     if(current?.who==="我"){
       if(typed!==current.text)return;
-      if(isJK)onStep?.(step+1);else setNpcSteps(v=>({...v,[room]:(v[room]||0)+1}));
+      if(isJK)advanceJk();else setNpcSteps(v=>({...v,[room]:(v[room]||0)+1}));
       setTyped("");
       return;
     }
@@ -106,10 +114,10 @@ export function CrisisChat({owner,history,step,onStep}:{owner:string;history:Ite
     const next={...replies,[room]:[...(replies[room]||[]),draft.trim()]};
     setReplies(next);localStorage.setItem("foundphone-kkt-replies",JSON.stringify(next));setDraft("");
   };
-  const openRoom=(name:string)=>{setRoom(name);setReadRooms(v=>[...new Set([...v,name])]);setDraft("");};
+  const openRoom=(name:string)=>{setRoom(name);setReadRooms(v=>{const next=[...new Set([...v,name])];saveSaved("foundphone-kkt-read-rooms",next);return next;});setDraft("");};
   const lastText=(name:string)=>{
     if(replies[name]?.length)return replies[name].at(-1)||"";
-    if(name===JK)return sequence.slice(0,step).at(-1)?.text||opening[0].text;
+    if(name===JK)return sequence.slice(0,jkStep).at(-1)?.text||opening[0].text;
     return npcScripts[name]?.slice(0,npcSteps[name]||0).at(-1)?.text||incoming[name]?.[0]?.text||"";
   };
   return <div className={"crisis-chat kakao-real "+(room?"kakao-in-room":"kakao-on-list")}>
@@ -120,7 +128,7 @@ export function CrisisChat({owner,history,step,onStep}:{owner:string;history:Ite
         {section==="好友" && <><div className="kakao-profile"><div className="kakao-profile-avatar">👤</div><span><strong>{owner}</strong><small>我的个人资料</small></span></div><div className="kakao-list-label">好友 {people.length}</div></>}
         {(section==="好友"||section==="聊天")?people.filter(name=>name.includes(query)).map(name=>{
           const idx=people.indexOf(name);
-          const unread=!readRooms.includes(name) && (name===JK||step>=4);
+          const unread=!readRooms.includes(name) && (name===JK||jkStep>=4);
           return <button className="kakao-row" key={name} onClick={()=>openRoom(name)}>
             <span className="kakao-avatar">{avatarPhoto(name)?<img src={avatarPhoto(name)!} alt="" style={{width:"100%",height:"100%",objectFit:"cover",borderRadius:"inherit"}}/>:avatars[idx]}</span>
             <span className="kakao-row-info"><strong>{name}</strong><small>{section==="聊天"?lastText(name):name===JK?"🐰":""}</small></span>
