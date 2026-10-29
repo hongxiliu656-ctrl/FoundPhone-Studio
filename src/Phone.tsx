@@ -1,3 +1,4 @@
+import { MusicWidget } from "./MusicWidget";
 import { StatusGlyph } from "./ios/StatusGlyph";
 import { CrisisChat } from "./skins/CrisisChat";
 import { InstagramErrorBoundary } from "./skins/InstagramErrorBoundary";
@@ -462,6 +463,7 @@ function PhoneRuntime({
               </span>
             </button>
           </div>
+          {!creator && (locked ? !pinOpen : !app || app === "appstore") && <MusicWidget locked={locked} />}
           <AnimatePresence mode="wait">
             {locked && !(quickCamera && app === "camera") ? (
               <DeviceLock
