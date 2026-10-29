@@ -1,3 +1,4 @@
+import { MusicWidget } from "./MusicWidget";
 import { SystemNotifications } from "./SystemNotifications";
 import {
   ConnectivityModule,
@@ -110,6 +111,7 @@ export function DeviceLock({
     >
       {!pinOpen ? (
         <>
+          <MusicWidget locked />
           <div className="lock-clock-block">
             <LockKeyhole size={18} />
             <p>
