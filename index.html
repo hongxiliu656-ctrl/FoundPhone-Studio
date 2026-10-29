@@ -11,6 +11,22 @@
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      (async () => {
+        try {
+          const key = "foundphone-cache-migration-v135";
+          if (sessionStorage.getItem(key)) return;
+          const registrations = "serviceWorker" in navigator
+            ? await navigator.serviceWorker.getRegistrations() : [];
+          const oldCaches = "caches" in window ? await caches.keys() : [];
+          if (!registrations.length && !oldCaches.length) return;
+          sessionStorage.setItem(key, "1");
+          await Promise.all(registrations.map(reg => reg.unregister()));
+          await Promise.all(oldCaches.map(name => caches.delete(name)));
+          location.replace(location.pathname + "?build=135" + location.hash);
+        } catch (error) { console.warn("Cache migration:", error); }
+      })();
+    </script>
     <script type="module" src="/src/runtime/StoryPlayer.tsx"></script>
   </body>
 </html>
