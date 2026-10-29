@@ -1,11 +1,18 @@
 import { useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { Phone } from "./Phone";
+import { startGameMusic } from "./gameMusic";
 import { validateWork, type Work } from "./schema";
 import "./styles.css";
 function Player() {
   const [work, setWork] = useState<Work | null>(null);
   const [error, setError] = useState("");
+  useEffect(() => {
+    const start = () => startGameMusic();
+    document.addEventListener("pointerdown", start);
+    document.addEventListener("keydown", start);
+    return () => { document.removeEventListener("pointerdown", start); document.removeEventListener("keydown", start); };
+  }, []);
   useEffect(() => {
     fetch("./work.json")
       .then((r) => {
