@@ -655,7 +655,7 @@ function PhoneRuntime({
               </button>
             </div>
           )}
-          {!creator && s.endings.length > 0 && !locked && !endingNarrationDismissed && (!stayEnding || (endingPostVisited && app !== "instagram")) && (
+          {!creator && s.endings.length > 0 && finalNoteOpened && !locked && !endingNarrationDismissed && (!stayEnding || (endingPostVisited && app !== "instagram")) && (
             <button className="story-overlay ending" onClick={() => setEndingNarrationDismissed(true)} style={{width:"100%",height:"100%",border:0,cursor:"pointer",textAlign:"center",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:16}}>
               <span className="eyebrow">ENDING</span>
               <h2>结局已定，{work.phone.owner || "玩家"}</h2>
