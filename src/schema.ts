@@ -196,6 +196,7 @@ export function validateWork(input: unknown): Work {
   return workSchema.parse(input);
 }
 export function safeMedia(value: string) {
+  if (/^\/FoundPhone-Studio\/ig\/(?:mnijungkook|thv)-\d{3}\.jpg$/.test(value)) return value;
   if (/^\/FoundPhone-Studio\/(?:photos\/(?:\d{2}\.jpeg|ending-with-you\.svg)|ig\/(?:jungkook-photo|taehyung-photo)\.svg)$/.test(value)) return value;
   return /^data:(image\/(png|jpeg|webp|gif)|audio\/(mpeg|mp3|wav|ogg|webm|mp4)|video\/(mp4|webm));base64,[a-zA-Z0-9+/=\s]+$/.test(
     value,
