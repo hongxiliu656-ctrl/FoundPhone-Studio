@@ -65,7 +65,7 @@ const incoming: Record<string,Line[]> = {
 function loadReplies(): Record<string,string[]> { try { return JSON.parse(localStorage.getItem("foundphone-kkt-replies") || "{}") as Record<string,string[]>; } catch { return {}; } }
 function loadSaved<T>(key:string, fallback:T):T { try { const raw=localStorage.getItem(key); return raw ? JSON.parse(raw) as T : fallback; } catch { return fallback; } }
 function saveSaved(key:string,value:unknown) { try { localStorage.setItem(key,JSON.stringify(value)); } catch { /* private mode or full storage */ } }
-export function CrisisChat({owner,history,step,onStep}:{owner:string;history:Item[];step:number;onStep?:(n:number)=>void}) {
+export function CrisisChat({owner,history,step,onStep,onUnreadChange}:{owner:string;history:Item[];step:number;onStep?:(n:number)=>void;onUnreadChange?:(count:number)=>void}) {
   const [section,setSection]=useState("聊天");
   const [room,setRoom]=useState<string|null>(null);
   const [query,setQuery]=useState("");
@@ -74,10 +74,14 @@ export function CrisisChat({owner,history,step,onStep}:{owner:string;history:Ite
   const [typing,setTyping]=useState(false);
   const [replies,setReplies]=useState<Record<string,string[]>>(loadReplies);
   const [readRooms,setReadRooms]=useState<string[]>(()=>loadSaved<string[]>("foundphone-kkt-read-rooms",[]));
+  const [readSteps,setReadSteps]=useState<Record<string,number>>(()=>loadSaved<Record<string,number>>("foundphone-kkt-read-steps",{}));
   const [npcSteps,setNpcSteps]=useState<Record<string,number>>(()=>loadSaved<Record<string,number>>("foundphone-kkt-npc-steps",{}));
   const [savedJkStep,setSavedJkStep]=useState(()=>loadSaved<number>("foundphone-kkt-jk-step",0));
   const jkStep=Math.max(step,savedJkStep);
   useEffect(()=>{saveSaved("foundphone-kkt-read-rooms",readRooms);},[readRooms]);
+  useEffect(()=>{saveSaved("foundphone-kkt-read-steps",readSteps);},[readSteps]);
+  const unreadCount=people.filter(name=>name===JK ? (!readRooms.includes(name) || jkStep>(readSteps[name]??0)) : jkStep>=4 && !readRooms.includes(name)).length;
+  useEffect(()=>{onUnreadChange?.(unreadCount);},[unreadCount,onUnreadChange]);
   useEffect(()=>{saveSaved("foundphone-kkt-npc-steps",npcSteps);},[npcSteps]);
   useEffect(()=>{if(jkStep>savedJkStep)setSavedJkStep(jkStep);saveSaved("foundphone-kkt-jk-step",jkStep);},[jkStep,savedJkStep]);
   const advanceJk=()=>{const next=jkStep+1;setSavedJkStep(next);onStep?.(next);};
@@ -99,7 +103,7 @@ export function CrisisChat({owner,history,step,onStep}:{owner:string;history:Ite
     return ()=>clearInterval(timer);
   },[jkStep,isJK,room,npcSteps]);
   const previous=history.filter(i=>i.title===room && !i.id.startsWith("crisis-")).slice(-18).map(i=>({who:i.sender===owner?"我":room||"",text:i.body}));
-  const messages:Line[]=isJK?[...previous,...opening,...sequence.slice(0,jkStep)]:[...previous,...(npcScripts[room||""]||[]).slice(0,npcSteps[room||""]||0)];
+  const messages:Line[]=isJK?[...previous,...opening,...sequence.slice(0,jkStep)]:[...previous,...(incoming[room||""]||[]),...(npcScripts[room||""]||[]).slice(0,npcSteps[room||""]||0)];
   const extras=room?(replies[room]||[]):[];
   useEffect(()=>{if(scroll.current)scroll.current.scrollTop=scroll.current.scrollHeight;},[room,jkStep,typed,replies,history.length]);
   const send=()=>{
@@ -114,7 +118,8 @@ export function CrisisChat({owner,history,step,onStep}:{owner:string;history:Ite
     const next={...replies,[room]:[...(replies[room]||[]),draft.trim()]};
     setReplies(next);localStorage.setItem("foundphone-kkt-replies",JSON.stringify(next));setDraft("");
   };
-  const openRoom=(name:string)=>{setRoom(name);setReadRooms(v=>{const next=[...new Set([...v,name])];saveSaved("foundphone-kkt-read-rooms",next);return next;});setDraft("");};
+  const openRoom=(name:string)=>{setRoom(name);setReadRooms(v=>{const next=[...new Set([...v,name])];saveSaved("foundphone-kkt-read-rooms",next);return next;});setReadSteps(v=>({...v,[name]:name===JK?jkStep:(npcSteps[name]||0)}));setDraft("");};
+  useEffect(()=>{if(room===JK && jkStep>(readSteps[JK]??0))setReadSteps(v=>({...v,[JK]:jkStep}));},[room,jkStep]);
   const lastText=(name:string)=>{
     if(replies[name]?.length)return replies[name].at(-1)||"";
     if(name===JK)return sequence.slice(0,jkStep).at(-1)?.text||opening[0].text;
@@ -128,7 +133,7 @@ export function CrisisChat({owner,history,step,onStep}:{owner:string;history:Ite
         {section==="好友" && <><div className="kakao-profile"><div className="kakao-profile-avatar">👤</div><span><strong>{owner}</strong><small>我的个人资料</small></span></div><div className="kakao-list-label">好友 {people.length}</div></>}
         {(section==="好友"||section==="聊天")?people.filter(name=>name.includes(query)).map(name=>{
           const idx=people.indexOf(name);
-          const unread=!readRooms.includes(name) && (name===JK||jkStep>=4);
+          const unread=name===JK ? (!readRooms.includes(name)||jkStep>(readSteps[name]??0)) : jkStep>=4 && !readRooms.includes(name);
           return <button className="kakao-row" key={name} onClick={()=>openRoom(name)}>
             <span className="kakao-avatar">{avatarPhoto(name)?<img src={avatarPhoto(name)!} alt="" style={{width:"100%",height:"100%",objectFit:"cover",borderRadius:"inherit"}}/>:avatars[idx]}</span>
             <span className="kakao-row-info"><strong>{name}</strong><small>{section==="聊天"?lastText(name):name===JK?"🐰":""}</small></span>
