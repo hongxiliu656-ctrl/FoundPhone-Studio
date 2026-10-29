@@ -463,7 +463,7 @@ function PhoneRuntime({
               </span>
             </button>
           </div>
-          {!creator && (locked ? !pinOpen : !app || app === "appstore") && <MusicWidget locked={locked} />}
+          {!creator && locked && !pinOpen && <MusicWidget locked />}
           <AnimatePresence mode="wait">
             {locked && !(quickCamera && app === "camera") ? (
               <DeviceLock
