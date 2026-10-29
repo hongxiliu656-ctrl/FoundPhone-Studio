@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#f5f4f0" />
+    <title>捡手机 · 最新版 143</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <div id="build-version" style="position:fixed;bottom:4px;right:6px;z-index:99999;font:10px sans-serif;color:#888;opacity:.65;pointer-events:none">v143</div>
+    <script>
+      (async () => {
+        try {
+          const key = "foundphone-cache-migration-v135";
+          if (sessionStorage.getItem(key)) return;
+          const registrations = "serviceWorker" in navigator
+            ? await navigator.serviceWorker.getRegistrations() : [];
+          const oldCaches = "caches" in window ? await caches.keys() : [];
+          if (!registrations.length && !oldCaches.length) return;
+          sessionStorage.setItem(key, "1");
+          await Promise.all(registrations.map(reg => reg.unregister()));
+          await Promise.all(oldCaches.map(name => caches.delete(name)));
+          location.replace(location.pathname + "?build=135" + location.hash);
+        } catch (error) { console.warn("Cache migration:", error); }
+      })();
+    </script>
+    <script type="module" src="/src/runtime/StoryPlayer.tsx"></script>
+  </body>
+</html>
