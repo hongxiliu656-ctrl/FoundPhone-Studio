@@ -1,6 +1,7 @@
 import { useEffect, useState, type FormEvent } from "react";
 import { createRoot } from "react-dom/client";
 import { Phone } from "../Phone";
+import { startGameMusic } from "../gameMusic";
 import { validateWork, type Work } from "../schema";
 import "../styles.css";
 import "./player.css";
@@ -25,6 +26,17 @@ function StoryPlayer() {
   const [nameInput, setNameInput] = useState("");
 
   useEffect(() => {
+    startGameMusic();
+    const start = () => startGameMusic();
+    document.addEventListener("pointerdown", start);
+    document.addEventListener("keydown", start);
+    return () => {
+      document.removeEventListener("pointerdown", start);
+      document.removeEventListener("keydown", start);
+    };
+  }, []);
+
+  useEffect(() => {
     const abort = new AbortController();
     fetch(
       new URLSearchParams(location.search).get("preview") === "test"
@@ -32,7 +44,7 @@ function StoryPlayer() {
         : new URLSearchParams(location.search).get("template") === "blank"
           ? "./blank-work.json"
           : "./work.json",
-      { signal: abort.signal },
+      { signal: abort.signal, cache: "no-store" },
     )
       .then((r) => {
         if (!r.ok) throw Error("缺少作品文件，请运行 npm run story:build");
